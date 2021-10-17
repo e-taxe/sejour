@@ -1,17 +1,24 @@
 package com.fstg.taxesejour.infrastructure.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "categories")
+@Entity(name = "categories")
+@Getter
+@Setter
 public class CategorieSejour extends AbstractEntity {
-    @Field(name = "categorie")
+    @Id
+    Long id;
+    String refCategorieSejour;
+    @Column(name = "categorie")
     String categorie;
+
 }
