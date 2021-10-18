@@ -1,15 +1,13 @@
 package com.fstg.taxesejour.application.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TaxeSejourTrimDtoResponse {
     String refTaxeSejourTrim;
     String numTrim;

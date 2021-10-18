@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class TaxeSejourTrim extends AbstractEntity {
     @Id
     Long id;
