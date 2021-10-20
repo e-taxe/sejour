@@ -11,44 +11,48 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+import static com.fstg.taxesejour.utils.Constant.TAXE_TRIM_ENDPOINT;
+
 @Api("Taxe Sejour Trim Api")
 public interface TaxeSejourTrimApi {
-    @GetMapping(value = "/taxe-sejour")
+    @GetMapping(value = TAXE_TRIM_ENDPOINT + "/")
     @ApiOperation(value = "Get All Taxe Trim ", notes = "All Taxe Trim", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "All Taxe Trim")
     })
     List<TaxeSejourTrimDtoResponse> findAll();
 
-    @GetMapping(value = "/taxe-sejour/byRefrence/{refTaxeSejourTrim}")
+    @GetMapping(value = TAXE_TRIM_ENDPOINT + "/ref/{ref}")
     @ApiOperation(value = "Taxe Trim By Refrence", notes = "Taxe Trim By Refrence", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Taxe Trim By Refrence")
     })
-    TaxeSejourTrimDtoResponse findByRefTaxeSejourTrim(@PathVariable String refTaxeSejourTrim);
+    TaxeSejourTrimDtoResponse findByRefTaxeSejourTrim(@PathVariable String ref);
 
-    @DeleteMapping(value = "/taxe-sejour/byRefrence/{refTaxeSejourTrim}")
+
+    @DeleteMapping(value = TAXE_TRIM_ENDPOINT + "/ref/{ref}")
     @ApiOperation(value = "Delete Taxe Trim By Refrence", notes = "Delete Taxe Trim By Refrence", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Delete Taxe Trim By Refrence")
     })
-    int deleteByRefTaxeSejourTrim(@PathVariable String refTaxeSejourTrim);
+    int deleteByRefTaxeSejourTrim(@PathVariable String ref);
 
-    @GetMapping(value = "/taxe-sejour/byYear/{annee}")
+    @GetMapping(value = TAXE_TRIM_ENDPOINT + "/year/{year}")
     @ApiOperation(value = "Find Taxe Trim By year", notes = "Find Taxe Trim By year", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Find Taxe Trim By year")
     })
-    TaxeSejourTrimDtoResponse findByAnnee(@PathVariable() int annee);
+    TaxeSejourTrimDtoResponse findByAnnee(@PathVariable() int year);
 
-    @GetMapping(value = "/taxe-sejour/byDateValidation/{dateValidation}")
+
+    @GetMapping(value = TAXE_TRIM_ENDPOINT + "/dateValidation/{dateValidation}")
     @ApiOperation(value = "Find Taxe Trim By Date Validation", notes = "Find Taxe Trim By Date Validation", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Find Taxe Trim By Date Validation")
     })
     TaxeSejourTrimDtoResponse findByDateValidation(@PathVariable() Date dateValidation);
 
-    @PostMapping(value = "/taxe-sejour")
+    @PostMapping(value = TAXE_TRIM_ENDPOINT + "/")
     @ApiOperation(value = "Add new Taxe", notes = "Add new Taxe Sejour", response = TaxeSejourTrimDtoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Add new Taxe Sejour")

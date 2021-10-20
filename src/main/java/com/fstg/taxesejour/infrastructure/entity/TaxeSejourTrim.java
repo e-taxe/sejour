@@ -7,17 +7,18 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity(name = "taxeSejourTrim")
+
+@EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Entity
+@Table(name = "taxeSejourTrim")
 @Builder
 public class TaxeSejourTrim extends AbstractEntity {
-    @Id
-    Long id;
-    String refTaxeSejourTrim;
+    @Column(unique = true)
+    String ref;
     int numTrim;
     int annee;
     BigDecimal nombreNuit;
@@ -31,6 +32,9 @@ public class TaxeSejourTrim extends AbstractEntity {
 
     @Temporal(TemporalType.DATE)
     Date dateValidation;
-
+    @ManyToOne()
+    TauxTaxeSejour tauxTaxeSejour;
+    @OneToOne(optional = true)
+    TauxRetardTaxeSejourTrim tauxRetardTaxeSejourTrim;
 
 }

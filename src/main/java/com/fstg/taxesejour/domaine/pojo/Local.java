@@ -11,5 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Local implements Serializable {
     private static final long serialVersionUID = 5628817130716181708L;
-    private String refLocal;
+    private String ref;
+    private Long id;
+    private String nom;
 }

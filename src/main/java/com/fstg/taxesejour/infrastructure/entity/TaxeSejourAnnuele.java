@@ -1,38 +1,29 @@
 package com.fstg.taxesejour.infrastructure.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "taxeSejourAnnuele")
 public class TaxeSejourAnnuele extends AbstractEntity {
-    @Id
-    Long id;
-    String refTaxeSejourAnnuele;
-    int anneee;
+    int annee;
     BigDecimal nombreNuit;
-    BigDecimal nombreClients;
-    String refLocal;
-
-    @OneToMany(mappedBy = "taxeSejourAnnuele")
-    List<TaxeSejourTrim> taxeSejourTrims;
-
+    @OneToMany(mappedBy = "taxeSejourAnnuele", cascade = CascadeType.ALL)
+    List<TaxeSejourTrim> taxeSejourTrims = new ArrayList<>();
     BigDecimal montantRetard;
-
+    String refLocal;
     @Temporal(TemporalType.DATE)
     Date datePresentation;
-
     @Temporal(TemporalType.DATE)
     Date dateValidation;
 }

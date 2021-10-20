@@ -1,5 +1,6 @@
 package com.fstg.taxesejour.domaine.serviceImpl;
 
+import com.fstg.taxesejour.application.converter.TaxeSejourTrimConverter;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
@@ -20,10 +21,12 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
 
     private final TaxeSejourTrimDao taxeSejourTrimDao;
     private final ModelMapper modelMapper;
+    private final TaxeSejourTrimConverter taxeSejourTrimConverter;
 
-    public TaxeSejourTrimServiceImpl(TaxeSejourTrimDao taxeSejourTrimDao, ModelMapper modelMapper) {
+    public TaxeSejourTrimServiceImpl(TaxeSejourTrimDao taxeSejourTrimDao, ModelMapper modelMapper, TaxeSejourTrimConverter taxeSejourTrimConverter) {
         this.taxeSejourTrimDao = taxeSejourTrimDao;
         this.modelMapper = modelMapper;
+        this.taxeSejourTrimConverter = taxeSejourTrimConverter;
     }
 
     @Override
@@ -35,12 +38,12 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
 
     @Override
     public TaxeSejourTrimPojo findByRefTaxeSejourTrim(String refTaxeSejourTrim) {
-        return modelMapper.map(taxeSejourTrimDao.findByRefTaxeSejourTrim(refTaxeSejourTrim), TaxeSejourTrimPojo.class);
+        return modelMapper.map(taxeSejourTrimDao.findByRef(refTaxeSejourTrim), TaxeSejourTrimPojo.class);
     }
 
     @Override
     public int deleteByRefTaxeSejourTrim(String refTaxeSejourTrim) {
-        return taxeSejourTrimDao.deleteByRefTaxeSejourTrim(refTaxeSejourTrim);
+        return taxeSejourTrimDao.deleteByRef(refTaxeSejourTrim);
     }
 
     @Override
@@ -55,10 +58,10 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
 
     @Override
     public TaxeSejourTrimPojo save(TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest) {
-        TaxeSejourTrim taxeSejourTrim = modelMapper.map(taxeSejourTrimDtoRequest, TaxeSejourTrim.class);
-        log.info("taxe sejour Trim {}", taxeSejourTrim);
-        return null;
-
+        TaxeSejourTrim taxeSejourTrim = taxeSejourTrimConverter.voToBean(taxeSejourTrimDtoRequest);
+        taxeSejourTrim.setDatePresentation(new Date());
+        TaxeSejourTrim taxeSejourTrimSaved = taxeSejourTrimDao.save(taxeSejourTrim);
+        return modelMapper.map(taxeSejourTrimSaved, TaxeSejourTrimPojo.class);
     }
 
 

@@ -3,8 +3,12 @@ package com.fstg.taxesejour.application.rest;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
+import com.fstg.taxesejour.domaine.pojo.Local;
 import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
+import com.fstg.taxesejour.domaine.service.required.LocalService;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -16,10 +20,12 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
 
     private final TaxeSejourTrimService taxeSejourTrimService;
     private final ModelMapper modelMapper;
+    private final LocalService localService;
 
-    public TaxeSejourTrimController(TaxeSejourTrimService taxeSejourTrimService, ModelMapper modelMapper) {
+    public TaxeSejourTrimController(TaxeSejourTrimService taxeSejourTrimService, ModelMapper modelMapper, LocalService localService) {
         this.taxeSejourTrimService = taxeSejourTrimService;
         this.modelMapper = modelMapper;
+        this.localService = localService;
     }
 
     public List<TaxeSejourTrimDtoResponse> findAll() {
@@ -50,5 +56,16 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     @Override
     public TaxeSejourTrimDtoResponse save(TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest) {
         return modelMapper.map(taxeSejourTrimService.save(taxeSejourTrimDtoRequest), TaxeSejourTrimDtoResponse.class);
+    }
+
+
+    @GetMapping("/locals")
+    public List<Local> findAllLocal() {
+        return localService.findAll();
+    }
+
+    @GetMapping("/locals/ref/{ref}")
+    public Local findByRef(@PathVariable String ref) {
+        return localService.findByRef(ref);
     }
 }

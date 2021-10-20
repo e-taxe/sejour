@@ -9,9 +9,9 @@ import java.util.Date;
 @Repository
 public interface TaxeSejourTrimDao extends JpaRepository<TaxeSejourTrim, Long> {
     //    converter from POJO TO ENTITY and inverse
-    TaxeSejourTrim findByRefTaxeSejourTrim(String refTaxeSejourTrim);
+    TaxeSejourTrim findByRef(String ref);
 
-    int deleteByRefTaxeSejourTrim(String refTaxeSejourTrim);
+    int deleteByRef(String ref);
 
     TaxeSejourTrim findByAnnee(int annee);
 

@@ -5,20 +5,18 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "categories")
-@Getter
-@Setter
+@Data
 public class CategorieSejour extends AbstractEntity {
-    @Id
-    Long id;
-    String refCategorieSejour;
     @Column(name = "categorie")
     String categorie;
+    double tva;
+    String abreviation;
 
 }

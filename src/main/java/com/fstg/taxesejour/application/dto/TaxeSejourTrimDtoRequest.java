@@ -11,13 +11,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaxeSejourTrimDtoRequest {
-    String refTaxeSejourTrim;
+    String ref;
     String numTrim;
     String annee;
     String nombreNuit;
-    String montant;
-    String montantRetard;
-    String taxeSejourAnnuele;
+    String refTaxeSejourAnnuel;
     String datePresentation;
-    String dateValidation;
 }
