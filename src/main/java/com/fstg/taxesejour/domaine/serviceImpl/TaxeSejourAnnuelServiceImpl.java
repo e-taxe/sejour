@@ -1,18 +1,14 @@
 package com.fstg.taxesejour.domaine.serviceImpl;
 
-import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
+import com.fstg.taxesejour.domaine.repository.TaxeSejourAnnuelDao;
 import com.fstg.taxesejour.domaine.service.core.TaxeSejourAnnuelService;
-import com.fstg.taxesejour.infrastructure.dao.TaxeSejourAnnuelDao;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@Slf4j
+
 public class TaxeSejourAnnuelServiceImpl implements TaxeSejourAnnuelService {
     private final TaxeSejourAnnuelDao taxeSejourAnnuelDao;
     private final ModelMapper modelMapper;
@@ -23,29 +19,33 @@ public class TaxeSejourAnnuelServiceImpl implements TaxeSejourAnnuelService {
     }
 
     @Override
-    public TaxeSejourAnnuelePojo save(TaxeSejourAnnuele taxeSejourAnnuele) {
-        log.info("taxeSejourAnnuele {}", taxeSejourAnnuele);
-        return modelMapper.map(taxeSejourAnnuelDao.save(taxeSejourAnnuele), TaxeSejourAnnuelePojo.class);
+    public TaxeSejourAnnuele save(TaxeSejourAnnuele taxeSejourAnnuele) {
+        return modelMapper.map(taxeSejourAnnuelDao.save(taxeSejourAnnuele), TaxeSejourAnnuele.class);
     }
 
     @Override
-    public List<TaxeSejourAnnuelePojo> findAll() {
+    public List<TaxeSejourAnnuele> findAll() {
         return taxeSejourAnnuelDao.findAll().stream()
-                .map(el -> modelMapper.map(el, TaxeSejourAnnuelePojo.class))
+                .map(el -> modelMapper.map(el, TaxeSejourAnnuele.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TaxeSejourAnnuelePojo findByRef(String ref) {
+    public TaxeSejourAnnuele findByRef(String ref) {
         TaxeSejourAnnuele taxeSejourAnnuele = taxeSejourAnnuelDao.findByRef(ref);
-        if (taxeSejourAnnuele != null) return modelMapper.map(taxeSejourAnnuele, TaxeSejourAnnuelePojo.class);
+        if (taxeSejourAnnuele != null) return modelMapper.map(taxeSejourAnnuele, TaxeSejourAnnuele.class);
         return null;
     }
 
     @Override
-    public TaxeSejourAnnuelePojo findByAnnee(int annee) {
+    public int deleteByRef(String ref) {
+        return taxeSejourAnnuelDao.deleteByRef(ref);
+    }
+
+    @Override
+    public TaxeSejourAnnuele findByAnnee(int annee) {
         TaxeSejourAnnuele taxeSejourAnnuele = taxeSejourAnnuelDao.findByAnnee(annee);
-        if (taxeSejourAnnuele != null) return modelMapper.map(taxeSejourAnnuele, TaxeSejourAnnuelePojo.class);
+        if (taxeSejourAnnuele != null) return modelMapper.map(taxeSejourAnnuele, TaxeSejourAnnuele.class);
         return null;
     }
 }

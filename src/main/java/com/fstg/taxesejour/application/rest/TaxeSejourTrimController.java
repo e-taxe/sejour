@@ -1,11 +1,11 @@
 package com.fstg.taxesejour.application.rest;
 
-import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
 import com.fstg.taxesejour.domaine.pojo.Local;
 import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
 import com.fstg.taxesejour.domaine.service.required.LocalService;
+import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,8 +54,8 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse save(TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest) {
-        return modelMapper.map(taxeSejourTrimService.save(taxeSejourTrimDtoRequest), TaxeSejourTrimDtoResponse.class);
+    public TaxeSejourTrimDtoResponse save(TaxeSejourTrim taxeSejourTrim) {
+        return modelMapper.map(taxeSejourTrimService.save(taxeSejourTrim), TaxeSejourTrimDtoResponse.class);
     }
 
 

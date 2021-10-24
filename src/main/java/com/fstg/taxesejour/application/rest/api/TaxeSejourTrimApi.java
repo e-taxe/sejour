@@ -1,7 +1,7 @@
 package com.fstg.taxesejour.application.rest.api;
 
-import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
+import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-import static com.fstg.taxesejour.utils.Constant.TAXE_TRIM_ENDPOINT;
+import static com.fstg.taxesejour.infrastructure.utils.Constant.TAXE_TRIM_ENDPOINT;
 
 @Api("Taxe Sejour Trim Api")
 public interface TaxeSejourTrimApi {
@@ -57,5 +57,5 @@ public interface TaxeSejourTrimApi {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Add new Taxe Sejour")
     })
-    TaxeSejourTrimDtoResponse save(@RequestBody TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest);
+    TaxeSejourTrimDtoResponse save(@RequestBody TaxeSejourTrim taxeSejourTrim);
 }

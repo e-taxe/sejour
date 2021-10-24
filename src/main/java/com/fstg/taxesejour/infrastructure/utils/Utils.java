@@ -1,4 +1,4 @@
-package com.fstg.taxesejour.utils;
+package com.fstg.taxesejour.infrastructure.utils;
 
 
 import java.math.BigDecimal;

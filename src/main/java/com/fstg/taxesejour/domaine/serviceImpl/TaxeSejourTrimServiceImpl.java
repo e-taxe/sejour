@@ -1,10 +1,9 @@
 package com.fstg.taxesejour.domaine.serviceImpl;
 
-import com.fstg.taxesejour.application.converter.TaxeSejourTrimConverter;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
+import com.fstg.taxesejour.domaine.repository.TaxeSejourTrimDao;
 import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
-import com.fstg.taxesejour.infrastructure.dao.TaxeSejourTrimDao;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -21,13 +20,12 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
 
     private final TaxeSejourTrimDao taxeSejourTrimDao;
     private final ModelMapper modelMapper;
-    private final TaxeSejourTrimConverter taxeSejourTrimConverter;
 
-    public TaxeSejourTrimServiceImpl(TaxeSejourTrimDao taxeSejourTrimDao, ModelMapper modelMapper, TaxeSejourTrimConverter taxeSejourTrimConverter) {
+    public TaxeSejourTrimServiceImpl(TaxeSejourTrimDao taxeSejourTrimDao, ModelMapper modelMapper) {
         this.taxeSejourTrimDao = taxeSejourTrimDao;
         this.modelMapper = modelMapper;
-        this.taxeSejourTrimConverter = taxeSejourTrimConverter;
     }
+
 
     @Override
     public List<TaxeSejourTrimPojo> findAll() {
@@ -56,10 +54,12 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
         return modelMapper.map(taxeSejourTrimDao.findByDateValidation(dateValidation), TaxeSejourTrimPojo.class);
     }
 
+
+
     @Override
-    public TaxeSejourTrimPojo save(TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest) {
-        TaxeSejourTrim taxeSejourTrim = taxeSejourTrimConverter.voToBean(taxeSejourTrimDtoRequest);
-        taxeSejourTrim.setDatePresentation(new Date());
+    public TaxeSejourTrimPojo save(TaxeSejourTrim taxeSejourTrim) {
+//        TaxeSejourTrim taxeSejourTrim = taxeSejourTrimConverter.voToBean(taxeSejourTrimDtoRequest);
+//        taxeSejourTrim.setDatePresentation(new Date());
         TaxeSejourTrim taxeSejourTrimSaved = taxeSejourTrimDao.save(taxeSejourTrim);
         return modelMapper.map(taxeSejourTrimSaved, TaxeSejourTrimPojo.class);
     }

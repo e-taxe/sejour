@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class TaxeSejourTrimDtoResponse {
-    String refTaxeSejourTrim;
+    String ref;
     String numTrim;
     String annee;
     String nombreNuit;

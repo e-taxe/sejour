@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-import static com.fstg.taxesejour.utils.Constant.TAXE_ANNUEL_ENDPOINT;
+import static com.fstg.taxesejour.infrastructure.utils.Constant.TAXE_ANNUEL_ENDPOINT;
 
 @Api("Taxe Sejour Annuel Api")
 public interface TaxeSejourAnnuelApi {

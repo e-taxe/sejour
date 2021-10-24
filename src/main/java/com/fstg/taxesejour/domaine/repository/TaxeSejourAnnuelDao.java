@@ -1,11 +1,11 @@
-package com.fstg.taxesejour.domaine.service.core;
-
+package com.fstg.taxesejour.domaine.repository;
 
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 
 import java.util.List;
 
-public interface TaxeSejourAnnuelService {
+public interface TaxeSejourAnnuelDao {
+
     List<TaxeSejourAnnuele> findAll();
 
     TaxeSejourAnnuele findByRef(String ref);
@@ -16,5 +16,6 @@ public interface TaxeSejourAnnuelService {
 
 
     TaxeSejourAnnuele save(TaxeSejourAnnuele TaxeSejourAnnuel);
+
 
 }

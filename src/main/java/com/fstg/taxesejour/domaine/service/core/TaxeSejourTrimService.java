@@ -1,7 +1,7 @@
 package com.fstg.taxesejour.domaine.service.core;
 
-import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
+import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 
 import java.util.Date;
 import java.util.List;
@@ -18,5 +18,5 @@ public interface TaxeSejourTrimService {
 
     TaxeSejourTrimPojo findByDateValidation(Date dateValidation);
 
-    TaxeSejourTrimPojo save(TaxeSejourTrimDtoRequest taxeSejourTrimDtoRequest);
+    TaxeSejourTrimPojo save(TaxeSejourTrim taxeSejourTrim);
 }

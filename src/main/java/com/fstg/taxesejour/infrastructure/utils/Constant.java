@@ -1,4 +1,4 @@
-package com.fstg.taxesejour.utils;
+package com.fstg.taxesejour.infrastructure.utils;
 
 public interface Constant {
     String APP_ROOT = "taxe-sejour/v1";
