@@ -31,6 +31,10 @@ public class TaxeSejourTrim extends AbstractEntity {
     Date datePresentation;
 
     @Temporal(TemporalType.DATE)
+    @Transient
+    Date expectedDatePresentation;
+
+    @Temporal(TemporalType.DATE)
     Date dateValidation;
     @ManyToOne()
     TauxTaxeSejour tauxTaxeSejour;

@@ -2,13 +2,11 @@ package com.fstg.taxesejour.application.rest;
 
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
-import com.fstg.taxesejour.domaine.pojo.Local;
-import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
-import com.fstg.taxesejour.domaine.service.required.LocalService;
-import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
+import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
+import com.fstg.taxesejour.domaine.process.facade.CreateTauxTaxeTrimProcess;
+import com.fstg.taxesejour.domaine.process.facade.TaxeSejourTrimService;
+import com.fstg.taxesejour.domaine.process.impl.Result;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -20,12 +18,13 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
 
     private final TaxeSejourTrimService taxeSejourTrimService;
     private final ModelMapper modelMapper;
-    private final LocalService localService;
+    private final CreateTauxTaxeTrimProcess createTauxTaxeTrimProcess;
 
-    public TaxeSejourTrimController(TaxeSejourTrimService taxeSejourTrimService, ModelMapper modelMapper, LocalService localService) {
+
+    public TaxeSejourTrimController(TaxeSejourTrimService taxeSejourTrimService, ModelMapper modelMapper, CreateTauxTaxeTrimProcess createTauxTaxeTrimProcess) {
         this.taxeSejourTrimService = taxeSejourTrimService;
         this.modelMapper = modelMapper;
-        this.localService = localService;
+        this.createTauxTaxeTrimProcess = createTauxTaxeTrimProcess;
     }
 
     public List<TaxeSejourTrimDtoResponse> findAll() {
@@ -34,13 +33,13 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse findByRefTaxeSejourTrim(String refTaxeSejourTrim) {
-        return modelMapper.map(taxeSejourTrimService.findByRefTaxeSejourTrim(refTaxeSejourTrim), TaxeSejourTrimDtoResponse.class);
+    public TaxeSejourTrimDtoResponse findByReferance(String ref) {
+        return modelMapper.map(taxeSejourTrimService.findByRefTaxeSejourTrim(ref), TaxeSejourTrimDtoResponse.class);
     }
 
     @Override
-    public int deleteByRefTaxeSejourTrim(String refTaxeSejourTrim) {
-        return taxeSejourTrimService.deleteByRefTaxeSejourTrim(refTaxeSejourTrim);
+    public int deleteByRef(String ref) {
+        return taxeSejourTrimService.deleteByRefTaxeSejourTrim(ref);
     }
 
     @Override
@@ -54,18 +53,9 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse save(TaxeSejourTrim taxeSejourTrim) {
-        return modelMapper.map(taxeSejourTrimService.save(taxeSejourTrim), TaxeSejourTrimDtoResponse.class);
+    public Result save(TaxeSejourTrimPojo taxeSejourTrim) {
+        return createTauxTaxeTrimProcess.run(taxeSejourTrim);
     }
 
 
-    @GetMapping("/locals")
-    public List<Local> findAllLocal() {
-        return localService.findAll();
-    }
-
-    @GetMapping("/locals/ref/{ref}")
-    public Local findByRef(@PathVariable String ref) {
-        return localService.findByRef(ref);
-    }
 }

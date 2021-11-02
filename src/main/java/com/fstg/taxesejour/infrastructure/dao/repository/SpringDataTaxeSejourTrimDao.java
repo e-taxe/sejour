@@ -1,4 +1,4 @@
-package com.fstg.taxesejour.infrastructure.repository;
+package com.fstg.taxesejour.infrastructure.dao.repository;
 
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +12,11 @@ public interface SpringDataTaxeSejourTrimDao extends JpaRepository<TaxeSejourTri
     TaxeSejourTrim findByRef(String ref);
 
     int deleteByRef(String ref);
+
+    boolean existsByRef(String ref);
+
+
+    boolean existsByAnneeAndNumTrim(int annee, int numTrim);
 
     TaxeSejourTrim findByAnnee(int annee);
 

@@ -1,6 +1,8 @@
 package com.fstg.taxesejour.application.rest.api;
 
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
+import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
+import com.fstg.taxesejour.domaine.process.impl.Result;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-import static com.fstg.taxesejour.infrastructure.utils.Constant.TAXE_TRIM_ENDPOINT;
+import static com.fstg.taxesejour.utils.Constant.TAXE_TRIM_ENDPOINT;
 
 @Api("Taxe Sejour Trim Api")
 public interface TaxeSejourTrimApi {
@@ -27,7 +29,7 @@ public interface TaxeSejourTrimApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Taxe Trim By Refrence")
     })
-    TaxeSejourTrimDtoResponse findByRefTaxeSejourTrim(@PathVariable String ref);
+    TaxeSejourTrimDtoResponse findByReferance(@PathVariable String ref);
 
 
     @DeleteMapping(value = TAXE_TRIM_ENDPOINT + "/ref/{ref}")
@@ -35,7 +37,7 @@ public interface TaxeSejourTrimApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Delete Taxe Trim By Refrence")
     })
-    int deleteByRefTaxeSejourTrim(@PathVariable String ref);
+    int deleteByRef(@PathVariable String ref);
 
     @GetMapping(value = TAXE_TRIM_ENDPOINT + "/year/{year}")
     @ApiOperation(value = "Find Taxe Trim By year", notes = "Find Taxe Trim By year", response = TaxeSejourTrimDtoResponse.class)
@@ -53,9 +55,9 @@ public interface TaxeSejourTrimApi {
     TaxeSejourTrimDtoResponse findByDateValidation(@PathVariable() Date dateValidation);
 
     @PostMapping(value = TAXE_TRIM_ENDPOINT + "/")
-    @ApiOperation(value = "Add new Taxe", notes = "Add new Taxe Sejour", response = TaxeSejourTrimDtoResponse.class)
+    @ApiOperation(value = "Add new Taxe", notes = "Add new Taxe Sejour", response = Integer.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Add new Taxe Sejour")
     })
-    TaxeSejourTrimDtoResponse save(@RequestBody TaxeSejourTrim taxeSejourTrim);
+    Result save(@RequestBody TaxeSejourTrimPojo taxeSejourTrim);
 }

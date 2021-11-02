@@ -1,11 +1,11 @@
-package com.fstg.taxesejour.infrastructure.repository;
+package com.fstg.taxesejour.infrastructure.dao.impl;
 
-import com.fstg.taxesejour.domaine.repository.TaxeSejourAnnuelDao;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelDao;
+import com.fstg.taxesejour.infrastructure.dao.repository.SpringDataTaxeSejourAnnuelDao;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +23,8 @@ public class SpringTaxeSejourAnnuelService implements TaxeSejourAnnuelDao {
         return springDtataxeSejourAnnuelDao.findAll();
     }
 
+
+
     @Override
     public TaxeSejourAnnuele findByRef(String ref) {
         return springDtataxeSejourAnnuelDao.findByRef(ref);
@@ -36,6 +38,11 @@ public class SpringTaxeSejourAnnuelService implements TaxeSejourAnnuelDao {
     @Override
     public TaxeSejourAnnuele findByAnnee(int annee) {
         return springDtataxeSejourAnnuelDao.findByAnnee(annee);
+    }
+
+    @Override
+    public boolean existsByRef(String ref) {
+        return springDtataxeSejourAnnuelDao.existsByRef(ref);
     }
 
 

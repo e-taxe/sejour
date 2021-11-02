@@ -2,7 +2,7 @@ package com.fstg.taxesejour.application.rest;
 
 import com.fstg.taxesejour.application.rest.api.TaxeSejourAnnuelApi;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
-import com.fstg.taxesejour.domaine.service.core.TaxeSejourAnnuelService;
+import com.fstg.taxesejour.domaine.process.facade.TaxeSejourAnnuelService;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +21,8 @@ public class TaxeSejourAnnuelController implements TaxeSejourAnnuelApi {
     }
 
     @Override
-    public TaxeSejourAnnuelePojo save(TaxeSejourAnnuele taxeSejourAnnuele) {
-        return
-                modelMapper.map(taxeSejourAnnuelService.save(taxeSejourAnnuele), TaxeSejourAnnuelePojo.class);
+    public int save(TaxeSejourAnnuele taxeSejourAnnuele) {
+        return taxeSejourAnnuelService.save(taxeSejourAnnuele);
     }
 
     @Override

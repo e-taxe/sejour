@@ -1,4 +1,4 @@
-package com.fstg.taxesejour.domaine.service.core;
+package com.fstg.taxesejour.domaine.process.facade;
 
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
@@ -15,8 +15,11 @@ public interface TaxeSejourTrimService {
     int deleteByRefTaxeSejourTrim(String refTaxeSejourTrim);
 
     TaxeSejourTrimPojo findByAnnee(int annee);
+    boolean existeByRef(String ref);
+    boolean existsByAnneeAndNumTrim(int annee, int numTrim);
 
     TaxeSejourTrimPojo findByDateValidation(Date dateValidation);
 
-    TaxeSejourTrimPojo save(TaxeSejourTrim taxeSejourTrim);
+    int save(TaxeSejourTrim taxeSejourTrim);
+
 }

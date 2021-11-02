@@ -1,4 +1,4 @@
-package com.fstg.taxesejour.infrastructure.repository;
+package com.fstg.taxesejour.infrastructure.dao.repository;
 
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +11,7 @@ public interface SpringDataTaxeSejourAnnuelDao extends JpaRepository<TaxeSejourA
     int deleteByRef(String ref);
 
     TaxeSejourAnnuele findByAnnee(int annee);
+
+    boolean existsByRef(String ref);
 
 }

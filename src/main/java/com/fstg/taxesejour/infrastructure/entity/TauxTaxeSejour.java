@@ -8,12 +8,13 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "tauxTaxeSejour")
-@Getter
-@Setter
+@Data
+@Builder
 public class TauxTaxeSejour extends AbstractEntity {
 
     @Temporal(TemporalType.DATE)

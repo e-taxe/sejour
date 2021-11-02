@@ -16,6 +16,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "tauxRetardTaxeSejourTrim")
 @Data
+@Builder
 public class TauxRetardTaxeSejourTrim extends AbstractEntity {
     BigDecimal premierMoisRetard;
     BigDecimal autreMoisRetard;

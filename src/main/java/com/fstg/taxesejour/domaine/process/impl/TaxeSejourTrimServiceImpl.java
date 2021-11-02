@@ -1,21 +1,16 @@
-package com.fstg.taxesejour.domaine.serviceImpl;
+package com.fstg.taxesejour.domaine.process.impl;
 
-import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoRequest;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
-import com.fstg.taxesejour.domaine.repository.TaxeSejourTrimDao;
-import com.fstg.taxesejour.domaine.service.core.TaxeSejourTrimService;
+import com.fstg.taxesejour.domaine.process.facade.TaxeSejourTrimService;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimDao;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
-import lombok.extern.slf4j.Slf4j;
+import com.fstg.taxesejour.utils.Utils;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-@Service
-@Slf4j
 public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
 
     private final TaxeSejourTrimDao taxeSejourTrimDao;
@@ -50,18 +45,37 @@ public class TaxeSejourTrimServiceImpl implements TaxeSejourTrimService {
     }
 
     @Override
+    public boolean existeByRef(String ref) {
+        return taxeSejourTrimDao.existeByRef(ref);
+    }
+
+    @Override
+    public boolean existsByAnneeAndNumTrim(int annee, int numTrim) {
+        return taxeSejourTrimDao.existsByAnneeAndNumTrim(annee, numTrim);
+    }
+
+    @Override
     public TaxeSejourTrimPojo findByDateValidation(Date dateValidation) {
         return modelMapper.map(taxeSejourTrimDao.findByDateValidation(dateValidation), TaxeSejourTrimPojo.class);
     }
 
 
-
     @Override
-    public TaxeSejourTrimPojo save(TaxeSejourTrim taxeSejourTrim) {
+    public int save(TaxeSejourTrim taxeSejourTrim) {
 //        TaxeSejourTrim taxeSejourTrim = taxeSejourTrimConverter.voToBean(taxeSejourTrimDtoRequest);
 //        taxeSejourTrim.setDatePresentation(new Date());
-        TaxeSejourTrim taxeSejourTrimSaved = taxeSejourTrimDao.save(taxeSejourTrim);
-        return modelMapper.map(taxeSejourTrimSaved, TaxeSejourTrimPojo.class);
+        if (taxeSejourTrimDao.existeByRef(taxeSejourTrim.getRef())) return -1;
+        /* test if taxeSejourAnnuel existe By ref */
+        //TODO add code here
+        /* test if taxeSejourTrim existe by annee and num trim  */
+        if (taxeSejourTrimDao.existsByAnneeAndNumTrim(taxeSejourTrim.getAnnee(), taxeSejourTrim.getNumTrim()))
+            return -2;
+        /* Calcul Montant */
+        int daysRetard = Utils.getNumberOfMonthRetard(taxeSejourTrim.getDatePresentation(), taxeSejourTrim.getExpectedDatePresentation());
+        /* calcul montant retard */
+        System.out.println("nombrredays retard " + daysRetard);
+        taxeSejourTrimDao.save(taxeSejourTrim);
+        return 1;
     }
 
 

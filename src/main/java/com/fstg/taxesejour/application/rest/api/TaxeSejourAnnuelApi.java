@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-import static com.fstg.taxesejour.infrastructure.utils.Constant.TAXE_ANNUEL_ENDPOINT;
+import static com.fstg.taxesejour.utils.Constant.TAXE_ANNUEL_ENDPOINT;
 
 @Api("Taxe Sejour Annuel Api")
 public interface TaxeSejourAnnuelApi {
 
     @PostMapping(value = TAXE_ANNUEL_ENDPOINT + "/")
-    @ApiOperation(value = "Add new TaxeSejourAnnuele", notes = "Add new TaxeSejourAnnuele", response = TaxeSejourTrimDtoResponse.class)
-    TaxeSejourAnnuelePojo save(@RequestBody TaxeSejourAnnuele taxeSejourAnnuele);
+    @ApiOperation(value = "Add new TaxeSejourAnnuele", notes = "Add new TaxeSejourAnnuele", response = Integer.class)
+    int save(@RequestBody TaxeSejourAnnuele taxeSejourAnnuele);
 
     @GetMapping(value = TAXE_ANNUEL_ENDPOINT + "/")
     @ApiOperation(value = "findAll", notes = "findAll", response = TaxeSejourTrimDtoResponse.class)

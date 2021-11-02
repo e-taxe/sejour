@@ -12,14 +12,16 @@ import java.util.Date;
 @NoArgsConstructor
 public class TaxeSejourTrimPojo {
     Long id;
-    String refTaxeSejourTrim;
+    String ref;
     int numTrim;
     int annee;
-    BigDecimal nombreNuit;
+    long nombreNuit;
     BigDecimal montant;
     BigDecimal montantRetard;
-    TaxeSejourAnnuelePojo taxeSejourAnnuele;
+    String refTaxeSejourAnnuele;
+    String refTauxTaxe;
     Date datePresentation;
     Date dateValidation;
+    Date expectedDatePresentation;
 
 }

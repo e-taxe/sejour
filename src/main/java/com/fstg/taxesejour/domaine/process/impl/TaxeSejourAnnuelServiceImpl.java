@@ -1,7 +1,7 @@
-package com.fstg.taxesejour.domaine.serviceImpl;
+package com.fstg.taxesejour.domaine.process.impl;
 
-import com.fstg.taxesejour.domaine.repository.TaxeSejourAnnuelDao;
-import com.fstg.taxesejour.domaine.service.core.TaxeSejourAnnuelService;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelDao;
+import com.fstg.taxesejour.domaine.process.facade.TaxeSejourAnnuelService;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 import org.modelmapper.ModelMapper;
 
@@ -13,14 +13,19 @@ public class TaxeSejourAnnuelServiceImpl implements TaxeSejourAnnuelService {
     private final TaxeSejourAnnuelDao taxeSejourAnnuelDao;
     private final ModelMapper modelMapper;
 
+
     public TaxeSejourAnnuelServiceImpl(TaxeSejourAnnuelDao taxeSejourAnnuelDao, ModelMapper modelMapper) {
         this.taxeSejourAnnuelDao = taxeSejourAnnuelDao;
         this.modelMapper = modelMapper;
+
     }
 
     @Override
-    public TaxeSejourAnnuele save(TaxeSejourAnnuele taxeSejourAnnuele) {
-        return modelMapper.map(taxeSejourAnnuelDao.save(taxeSejourAnnuele), TaxeSejourAnnuele.class);
+    public int save(TaxeSejourAnnuele taxeSejourAnnuele) {
+//        if (!localService.existByRef(taxeSejourAnnuele.getRefLocal())) return -1;
+        if (taxeSejourAnnuelDao.existsByRef(taxeSejourAnnuele.getRef())) return -2;
+        taxeSejourAnnuelDao.save(taxeSejourAnnuele);
+        return 1;
     }
 
     @Override
@@ -35,6 +40,11 @@ public class TaxeSejourAnnuelServiceImpl implements TaxeSejourAnnuelService {
         TaxeSejourAnnuele taxeSejourAnnuele = taxeSejourAnnuelDao.findByRef(ref);
         if (taxeSejourAnnuele != null) return modelMapper.map(taxeSejourAnnuele, TaxeSejourAnnuele.class);
         return null;
+    }
+
+    @Override
+    public boolean existsByRef(String ref) {
+        return taxeSejourAnnuelDao.existsByRef(ref);
     }
 
     @Override

@@ -1,22 +1,23 @@
-package com.fstg.taxesejour.domaine.repository;
+package com.fstg.taxesejour.infrastructure.dao.facade;
 
-import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 
 import java.util.Date;
-import java.util.List;
 
-public interface TaxeSejourTrimDao {
+public interface TaxeSejourTrimDao extends AbstractDao<TaxeSejourTrim, Long> {
 
-    List<TaxeSejourTrim> findAll();
+
     TaxeSejourTrim findByRef(String ref);
 
     int deleteByRef(String ref);
 
+    boolean existeByRef(String ref);
+
     TaxeSejourTrim findByAnnee(int annee);
 
+    boolean existsByAnneeAndNumTrim(int annee, int numTrim);
+
     TaxeSejourTrim findByDateValidation(Date dateValidation);
-    TaxeSejourTrim save(TaxeSejourTrim taxeSejourTrim);
 
 
 }
