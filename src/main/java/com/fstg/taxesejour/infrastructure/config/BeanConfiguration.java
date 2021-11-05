@@ -1,17 +1,12 @@
 package com.fstg.taxesejour.infrastructure.config;
 
-import com.fstg.taxesejour.domaine.process.facade.CreateTauxTaxeTrimProcess;
-import com.fstg.taxesejour.domaine.process.facade.TauxTaxeSejourService;
-import com.fstg.taxesejour.domaine.process.facade.TaxeSejourAnnuelService;
-import com.fstg.taxesejour.domaine.process.facade.TaxeSejourTrimService;
-import com.fstg.taxesejour.domaine.process.impl.CreateTauxTaxeTrimProcessImpl;
-import com.fstg.taxesejour.domaine.process.impl.TauxTaxeSejourServiceImpl;
-import com.fstg.taxesejour.domaine.process.impl.TaxeSejourAnnuelServiceImpl;
-import com.fstg.taxesejour.domaine.process.impl.TaxeSejourTrimServiceImpl;
+import com.fstg.taxesejour.domaine.process.facade.*;
+import com.fstg.taxesejour.domaine.process.impl.*;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimDao;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourDao;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelDao;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimDao;
+import com.fstg.taxesejour.infrastructure.required.LocalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +29,8 @@ public class BeanConfiguration {
         return new TauxTaxeSejourServiceImpl(tauxTaxeSejourDao);
     }
 
+
+
     @Bean
     CreateTauxTaxeTrimProcess createTauxTaxeTrimProcess(final TaxeSejourTrimDao taxeSejourTrimDao,
                                                         final TaxeSejourAnnuelDao taxeSejourAnnuelDao,
@@ -41,5 +38,14 @@ public class BeanConfiguration {
                                                         final TauxRetardTaxeSejourTrimDao tauxRetardTaxeSejourTrimDao
     ) {
         return new CreateTauxTaxeTrimProcessImpl(taxeSejourTrimDao, taxeSejourAnnuelDao, tauxTaxeSejourDao, tauxRetardTaxeSejourTrimDao);
+    }
+
+
+    @Bean
+    CreateTauxTaxeAnnuelProcess createTauxTaxeAnnuelProcess(
+            final TaxeSejourAnnuelDao taxeSejourAnnuelDao,
+            final LocalService localService,
+            final TauxTaxeSejourDao tauxTaxeSejourDao) {
+        return new CreateTauxTaxeAnnuelProcessImpl(taxeSejourAnnuelDao, tauxTaxeSejourDao, localService);
     }
 }

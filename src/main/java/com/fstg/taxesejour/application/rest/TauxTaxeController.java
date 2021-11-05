@@ -20,7 +20,6 @@ public class TauxTaxeController implements TauxTaxeApi {
         this.tauxTaxeSejourService = tauxTaxeSejourService;
         this.modelMapper = modelMapper;
     }
-
     @Override
     public int save(TauxTaxeSejour tauxTaxeSejour) {
         tauxTaxeSejourService.save(tauxTaxeSejour);

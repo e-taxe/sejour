@@ -3,7 +3,7 @@ package com.fstg.taxesejour.application.rest.api;
 
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
-import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
+import com.fstg.taxesejour.domaine.process.impl.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public interface TaxeSejourAnnuelApi {
 
     @PostMapping(value = TAXE_ANNUEL_ENDPOINT + "/")
     @ApiOperation(value = "Add new TaxeSejourAnnuele", notes = "Add new TaxeSejourAnnuele", response = Integer.class)
-    int save(@RequestBody TaxeSejourAnnuele taxeSejourAnnuele);
+    Result save(@RequestBody TaxeSejourAnnuelePojo taxeSejourAnnuelePojo);
 
     @GetMapping(value = TAXE_ANNUEL_ENDPOINT + "/")
     @ApiOperation(value = "findAll", notes = "findAll", response = TaxeSejourTrimDtoResponse.class)

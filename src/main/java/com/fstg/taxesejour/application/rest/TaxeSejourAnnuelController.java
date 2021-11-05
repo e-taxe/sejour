@@ -2,8 +2,9 @@ package com.fstg.taxesejour.application.rest;
 
 import com.fstg.taxesejour.application.rest.api.TaxeSejourAnnuelApi;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
+import com.fstg.taxesejour.domaine.process.facade.CreateTauxTaxeAnnuelProcess;
 import com.fstg.taxesejour.domaine.process.facade.TaxeSejourAnnuelService;
-import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
+import com.fstg.taxesejour.domaine.process.impl.Result;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,15 +15,17 @@ import java.util.stream.Collectors;
 public class TaxeSejourAnnuelController implements TaxeSejourAnnuelApi {
     private final TaxeSejourAnnuelService taxeSejourAnnuelService;
     private final ModelMapper modelMapper;
+    private final CreateTauxTaxeAnnuelProcess createTauxTaxeAnnuelProcess;
 
-    public TaxeSejourAnnuelController(TaxeSejourAnnuelService taxeSejourAnnuelService, ModelMapper modelMapper) {
+    public TaxeSejourAnnuelController(TaxeSejourAnnuelService taxeSejourAnnuelService, ModelMapper modelMapper, CreateTauxTaxeAnnuelProcess createTauxTaxeAnnuelProcess) {
         this.taxeSejourAnnuelService = taxeSejourAnnuelService;
         this.modelMapper = modelMapper;
+        this.createTauxTaxeAnnuelProcess = createTauxTaxeAnnuelProcess;
     }
 
     @Override
-    public int save(TaxeSejourAnnuele taxeSejourAnnuele) {
-        return taxeSejourAnnuelService.save(taxeSejourAnnuele);
+    public Result save(TaxeSejourAnnuelePojo taxeSejourAnnuele) {
+        return  createTauxTaxeAnnuelProcess.run(taxeSejourAnnuele);
     }
 
     @Override
