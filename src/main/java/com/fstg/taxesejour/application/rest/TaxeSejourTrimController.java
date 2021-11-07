@@ -1,6 +1,6 @@
 package com.fstg.taxesejour.application.rest;
 
-import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
+import com.fstg.taxesejour.application.dto.TaxeSejourTrimVO;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.domaine.process.facade.CreateTauxTaxeTrimProcess;
@@ -27,14 +27,14 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
         this.createTauxTaxeTrimProcess = createTauxTaxeTrimProcess;
     }
 
-    public List<TaxeSejourTrimDtoResponse> findAll() {
-        return taxeSejourTrimService.findAll().stream().map(el -> modelMapper.map(el, TaxeSejourTrimDtoResponse.class))
+    public List<TaxeSejourTrimVO> findAll() {
+        return taxeSejourTrimService.findAll().stream().map(el -> modelMapper.map(el, TaxeSejourTrimVO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse findByReferance(String ref) {
-        return modelMapper.map(taxeSejourTrimService.findByRefTaxeSejourTrim(ref), TaxeSejourTrimDtoResponse.class);
+    public TaxeSejourTrimVO findByReferance(String ref) {
+        return modelMapper.map(taxeSejourTrimService.findByRefTaxeSejourTrim(ref), TaxeSejourTrimVO.class);
     }
 
     @Override
@@ -43,13 +43,13 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse findByAnnee(int annee) {
-        return modelMapper.map(taxeSejourTrimService.findByAnnee(annee), TaxeSejourTrimDtoResponse.class);
+    public TaxeSejourTrimVO findByAnnee(int annee) {
+        return modelMapper.map(taxeSejourTrimService.findByAnnee(annee), TaxeSejourTrimVO.class);
     }
 
     @Override
-    public TaxeSejourTrimDtoResponse findByDateValidation(Date dateValidation) {
-        return modelMapper.map(taxeSejourTrimService.findByDateValidation(dateValidation), TaxeSejourTrimDtoResponse.class);
+    public TaxeSejourTrimVO findByDateValidation(Date dateValidation) {
+        return modelMapper.map(taxeSejourTrimService.findByDateValidation(dateValidation), TaxeSejourTrimVO.class);
     }
 
     @Override

@@ -1,18 +1,19 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourDao;
-import com.fstg.taxesejour.infrastructure.dao.repository.SpringTauxTaxeSejourDao;
+import com.fstg.taxesejour.infrastructure.dao.repository.SpringDataTauxTaxeSejourDao;
 import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
 @Service
 public class SpringTauxTaxeSejourService implements TauxTaxeSejourDao {
-    private final SpringTauxTaxeSejourDao springTauxTaxeSejourDao;
+    private final SpringDataTauxTaxeSejourDao springTauxTaxeSejourDao;
 
-    public SpringTauxTaxeSejourService(SpringTauxTaxeSejourDao springTauxTaxeSejourDao) {
+    public SpringTauxTaxeSejourService(SpringDataTauxTaxeSejourDao springTauxTaxeSejourDao) {
         this.springTauxTaxeSejourDao = springTauxTaxeSejourDao;
     }
 
@@ -39,5 +40,10 @@ public class SpringTauxTaxeSejourService implements TauxTaxeSejourDao {
     @Override
     public boolean existsByRef(String ref) {
         return springTauxTaxeSejourDao.existsByRef(ref);
+    }
+
+    @Override
+    public TauxTaxeSejour getCurrentTauxTaxe(String date) {
+        return springTauxTaxeSejourDao.getCurrentTauxTaxe(date);
     }
 }

@@ -1,5 +1,6 @@
 package com.fstg.taxesejour.application.rest;
 
+import com.fstg.taxesejour.application.dto.TaxeSejourAnnuelVO;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourAnnuelApi;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
 import com.fstg.taxesejour.domaine.process.facade.CreateTauxTaxeAnnuelProcess;
@@ -24,23 +25,24 @@ public class TaxeSejourAnnuelController implements TaxeSejourAnnuelApi {
     }
 
     @Override
-    public Result save(TaxeSejourAnnuelePojo taxeSejourAnnuele) {
-        return  createTauxTaxeAnnuelProcess.run(taxeSejourAnnuele);
+    public Result save(TaxeSejourAnnuelVO taxeSejourAnnuelVO) {
+        TaxeSejourAnnuelePojo taxeSejourAnnuele = modelMapper.map(taxeSejourAnnuelVO, TaxeSejourAnnuelePojo.class);
+        return createTauxTaxeAnnuelProcess.run(taxeSejourAnnuele);
     }
 
     @Override
-    public List<TaxeSejourAnnuelePojo> findAll() {
-        return taxeSejourAnnuelService.findAll().stream().map(el -> modelMapper.map(el, TaxeSejourAnnuelePojo.class))
+    public List<TaxeSejourAnnuelVO> findAll() {
+        return taxeSejourAnnuelService.findAll().stream().map(el -> modelMapper.map(el, TaxeSejourAnnuelVO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TaxeSejourAnnuelePojo findByRef(String ref) {
-        return modelMapper.map(taxeSejourAnnuelService.findByRef(ref), TaxeSejourAnnuelePojo.class);
+    public TaxeSejourAnnuelVO findByRef(String ref) {
+        return modelMapper.map(taxeSejourAnnuelService.findByRef(ref), TaxeSejourAnnuelVO.class);
     }
 
     @Override
-    public TaxeSejourAnnuelePojo findByAnnee(int annee) {
-        return modelMapper.map(taxeSejourAnnuelService.findByAnnee(annee), TaxeSejourAnnuelePojo.class);
+    public TaxeSejourAnnuelVO findByAnnee(int annee) {
+        return modelMapper.map(taxeSejourAnnuelService.findByAnnee(annee), TaxeSejourAnnuelVO.class);
     }
 }

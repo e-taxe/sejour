@@ -25,8 +25,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    TauxTaxeSejourService tauxTaxeSejourService(final TauxTaxeSejourDao tauxTaxeSejourDao) {
-        return new TauxTaxeSejourServiceImpl(tauxTaxeSejourDao);
+    TauxTaxeSejourProcess tauxTaxeSejourService(final TauxTaxeSejourDao tauxTaxeSejourDao) {
+        return new TauxTaxeSejourProcessImpl(tauxTaxeSejourDao);
     }
 
 

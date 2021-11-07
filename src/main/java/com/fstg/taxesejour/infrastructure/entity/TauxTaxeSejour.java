@@ -13,8 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "tauxTaxeSejour")
+@Table(name = "tauxTaxeSejour")
 @Data
 @Builder
+@ToString
 public class TauxTaxeSejour extends AbstractEntity {
 
     @Temporal(TemporalType.DATE)

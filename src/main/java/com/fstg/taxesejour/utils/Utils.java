@@ -2,21 +2,34 @@ package com.fstg.taxesejour.utils;
 
 
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+@Slf4j
 public class Utils {
     public static Date stringToDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        //local date + atStartOfDay() + default time zone + toInstant() = Date
-        return Date.from(Instant.parse(localDate.atStartOfDay(defaultZoneId).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+//        LocalDate localDate = LocalDate.parse(date);
+//        ZoneId defaultZoneId = ZoneId.systemDefault();
+//        //local date + atStartOfDay() + default time zone + toInstant() = Date
+//        return Date.from(Instant.parse(localDate.atStartOfDay(defaultZoneId).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        try {
+            Date date1 = new SimpleDateFormat("yyyy-mm-dd").parse(date);
+            return date1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String dateToString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
     }
 
     public static BigDecimal stringToBigDecimal(String input) {
@@ -29,6 +42,7 @@ public class Utils {
             long difference_In_Time = datePresentation.getTime() - expectedDatePresentation.getTime();
             return (int) ((difference_In_Time / (1000 * 60 * 60 * 24)) % 365) / 30;
         }
+//        TODO Calculate expectedDatePresentation
         return 0;
     }
 
@@ -48,5 +62,9 @@ public class Utils {
                 .premierMoisRetard(premierMoisRetard)
                 .nombreMoisRetard(nombreMoisRetard)
                 .dateApplication(new Date()).build();
+    }
+
+    public static boolean isAfter(Date dateMin, Date dateMax) {
+        return dateMax.getTime() > dateMin.getTime();
     }
 }

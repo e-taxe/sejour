@@ -8,13 +8,13 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TaxeSejourTrimDtoRequest {
+@NoArgsConstructor
+public class TaxeSejourAnnuelVO {
+
+    String dateMinApplication;
+    String dateMaxApplication;
+    String taux;
     String ref;
-    String numTrim;
-    String annee;
-    String nombreNuit;
-    String refTaxeSejourAnnuel;
-    String datePresentation;
+
 }

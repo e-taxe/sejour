@@ -8,4 +8,6 @@ public interface TauxTaxeSejourDao extends AbstractDao<TauxTaxeSejour, Long> {
     int deleteByRef(String ref);
 
     boolean existsByRef(String ref);
+
+    TauxTaxeSejour getCurrentTauxTaxe(String date);
 }
