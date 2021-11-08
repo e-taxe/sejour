@@ -17,25 +17,23 @@ import java.util.Date;
 @Table(name = "taxeSejourTrim")
 @Builder
 public class TaxeSejourTrim extends AbstractEntity {
-    @Column(unique = true)
-    String ref;
     int numTrim;
     int annee;
+    String ref;
     BigDecimal nombreNuit;
     BigDecimal montant;
     BigDecimal montantRetard;
     @ManyToOne()
     TaxeSejourAnnuele taxeSejourAnnuele;
-
     @Temporal(TemporalType.DATE)
     Date datePresentation;
+//
+//    @Temporal(TemporalType.DATE)
+//    @Transient
+//    Date expectedDatePresentation;
 
-    @Temporal(TemporalType.DATE)
-    @Transient
-    Date expectedDatePresentation;
-
-    @Temporal(TemporalType.DATE)
-    Date dateValidation;
+    //    @Temporal(TemporalType.DATE)
+//    Date dateValidation;
     @ManyToOne()
     TauxTaxeSejour tauxTaxeSejour;
     @OneToOne(optional = true)

@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,9 +17,11 @@ import java.util.Date;
 @Data
 @Builder
 public class TauxRetardTaxeSejourTrim extends AbstractEntity {
-    BigDecimal premierMoisRetard;
-    BigDecimal autreMoisRetard;
-    int nombreMoisRetard;
+    Double premierMoisRetard;
+    Double autreMoisRetard;
+    //    int nombreMoisRetard;
     @Temporal(TemporalType.DATE)
-    Date dateApplication;
+    Date dateApplicationMin;
+    Date dateApplicationMax;
+//    Double montant;
 }

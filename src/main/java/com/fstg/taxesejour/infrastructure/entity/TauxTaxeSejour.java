@@ -4,9 +4,11 @@ package com.fstg.taxesejour.infrastructure.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -24,7 +26,5 @@ public class TauxTaxeSejour extends AbstractEntity {
     @Temporal(TemporalType.DATE)
     Date dateMaxApplication;
     Double taux;
-    @OneToMany(mappedBy = "tauxTaxeSejour", cascade = CascadeType.ALL)
-    List<TaxeSejourTrim> taxeSejourTrims;
 
 }

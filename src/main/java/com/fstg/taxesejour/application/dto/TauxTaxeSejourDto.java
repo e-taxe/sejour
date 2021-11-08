@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TauxTaxeSejourVO {
+public class TauxTaxeSejourDto {
     String dateMinApplication;
     String dateMaxApplication;
     String ref;

@@ -6,15 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TaxeSejourTrimVO {
+@NoArgsConstructor
+public class TaxeSejourAnnuelDto {
+    Long id;
     String ref;
-    String numTrim;
-    String annee;
-    String nombreNuit;
-    String refTaxeSejourAnnuel;
-    String datePresentation;
+    int annee;
+    BigDecimal nombreNuit;
+    String refLocal;
+    Date datePresentation;
+
 }

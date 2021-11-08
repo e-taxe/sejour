@@ -2,9 +2,7 @@ package com.fstg.taxesejour.infrastructure.dao.facade;
 
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 
-import java.util.Date;
-
-public interface TaxeSejourTrimDao extends AbstractDao<TaxeSejourTrim, Long> {
+public interface TaxeSejourTrimInfra extends AbstractInfra<TaxeSejourTrim, Long> {
 
 
     TaxeSejourTrim findByRef(String ref);
@@ -17,7 +15,7 @@ public interface TaxeSejourTrimDao extends AbstractDao<TaxeSejourTrim, Long> {
 
     boolean existsByAnneeAndNumTrim(int annee, int numTrim);
 
-    TaxeSejourTrim findByDateValidation(Date dateValidation);
+//    TaxeSejourTrim findByDateValidation(Date dateValidation);
 
 
 }

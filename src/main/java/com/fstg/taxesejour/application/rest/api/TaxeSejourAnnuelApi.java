@@ -1,8 +1,8 @@
 package com.fstg.taxesejour.application.rest.api;
 
 
-import com.fstg.taxesejour.application.dto.TaxeSejourAnnuelVO;
-import com.fstg.taxesejour.domaine.process.impl.Result;
+import com.fstg.taxesejour.application.dto.TaxeSejourAnnuelDto;
+import com.fstg.taxesejour.domaine.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +17,17 @@ public interface TaxeSejourAnnuelApi {
 
     @PostMapping(value = "/")
     @ApiOperation(value = "Add new TaxeSejourAnnuele", notes = "Add new TaxeSejourAnnuele", response = Integer.class)
-    Result save(@RequestBody TaxeSejourAnnuelVO TaxeSejourAnnuelVO);
+    Result save(@RequestBody TaxeSejourAnnuelDto TaxeSejourAnnuelDto);
 
-    @GetMapping(value = "/")
-    @ApiOperation(value = "findAll", notes = "findAll", response = TaxeSejourAnnuelVO.class)
-    List<TaxeSejourAnnuelVO> findAll();
-
-    @GetMapping(value = "/ref/{ref}")
-    @ApiOperation(value = "findByRef", notes = "findByRef", response = TaxeSejourAnnuelVO.class)
-    TaxeSejourAnnuelVO findByRef(@PathVariable String ref);
-
-    @GetMapping(value = "/annee/{annee}")
-    @ApiOperation(value = "findByAnnee", notes = "findByAnnee", response = TaxeSejourAnnuelVO.class)
-    TaxeSejourAnnuelVO findByAnnee(@PathVariable int annee);
+//    @GetMapping(value = "/")
+//    @ApiOperation(value = "findAll", notes = "findAll", response = TaxeSejourAnnuelDto.class)
+//    List<TaxeSejourAnnuelDto> findAll();
+//
+//    @GetMapping(value = "/ref/{ref}")
+//    @ApiOperation(value = "findByRef", notes = "findByRef", response = TaxeSejourAnnuelDto.class)
+//    TaxeSejourAnnuelDto findByRef(@PathVariable String ref);
+//
+//    @GetMapping(value = "/annee/{annee}")
+//    @ApiOperation(value = "findByAnnee", notes = "findByAnnee", response = TaxeSejourAnnuelDto.class)
+//    TaxeSejourAnnuelDto findByAnnee(@PathVariable int annee);
 }

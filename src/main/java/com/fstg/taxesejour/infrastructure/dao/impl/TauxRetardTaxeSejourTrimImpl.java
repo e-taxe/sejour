@@ -1,6 +1,7 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
-import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimDao;
+import com.fstg.taxesejour.infrastructure.core.AbstractInfraImpl;
+import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimInfra;
 import com.fstg.taxesejour.infrastructure.dao.repository.SpringDataTauxRetardTaxeSejourTrim;
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TauxRetardTaxeSejourTrimImpl implements TauxRetardTaxeSejourTrimDao {
+public class TauxRetardTaxeSejourTrimImpl extends AbstractInfraImpl implements TauxRetardTaxeSejourTrimInfra {
 
     private final SpringDataTauxRetardTaxeSejourTrim springDataTauxRetardTaxeSejourTrim;
 

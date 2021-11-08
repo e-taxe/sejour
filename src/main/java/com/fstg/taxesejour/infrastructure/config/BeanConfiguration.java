@@ -1,51 +1,41 @@
 package com.fstg.taxesejour.infrastructure.config;
 
-import com.fstg.taxesejour.domaine.process.facade.*;
-import com.fstg.taxesejour.domaine.process.impl.*;
-import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimDao;
-import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourDao;
-import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelDao;
-import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimDao;
+
+import com.fstg.taxesejour.domaine.taxeSejourAnnuel.create.CreateTaxeAnnuelProcess;
+import com.fstg.taxesejour.domaine.taxeSejourAnnuel.create.CreateTaxeAnnuelProcessImpl;
+import com.fstg.taxesejour.domaine.taxeSejourTrim.create.CreateTaxeTrimProcess;
+import com.fstg.taxesejour.domaine.taxeSejourTrim.create.CreateTaxeTrimProcessImpl;
+import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimInfra;
+import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourInfra;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelInfra;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimInfra;
 import com.fstg.taxesejour.infrastructure.required.LocalService;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfiguration {
-
     @Bean
-    TaxeSejourTrimService taxeSejourTrimService(final TaxeSejourTrimDao taxeSejourTrimDao, final ModelMapper modelMapper) {
-        return new TaxeSejourTrimServiceImpl(taxeSejourTrimDao, modelMapper);
-    }
-
-    @Bean
-    TaxeSejourAnnuelService taxeSejourAnnuelService(final TaxeSejourAnnuelDao taxeSejourAnnuelDao, final ModelMapper modelMapper) {
-        return new TaxeSejourAnnuelServiceImpl(taxeSejourAnnuelDao, modelMapper);
-    }
-
-    @Bean
-    TauxTaxeSejourProcess tauxTaxeSejourService(final TauxTaxeSejourDao tauxTaxeSejourDao) {
-        return new TauxTaxeSejourProcessImpl(tauxTaxeSejourDao);
-    }
-
-
-
-    @Bean
-    CreateTauxTaxeTrimProcess createTauxTaxeTrimProcess(final TaxeSejourTrimDao taxeSejourTrimDao,
-                                                        final TaxeSejourAnnuelDao taxeSejourAnnuelDao,
-                                                        final TauxTaxeSejourDao tauxTaxeSejourDao,
-                                                        final TauxRetardTaxeSejourTrimDao tauxRetardTaxeSejourTrimDao
+    public CreateTaxeAnnuelProcess createTaxeAnnuelProcess(
+            TaxeSejourAnnuelInfra taxeSejourAnnuelInfra,
+            TauxTaxeSejourInfra tauxTaxeSejourInfra,
+            LocalService localService
     ) {
-        return new CreateTauxTaxeTrimProcessImpl(taxeSejourTrimDao, taxeSejourAnnuelDao, tauxTaxeSejourDao, tauxRetardTaxeSejourTrimDao);
+        return new CreateTaxeAnnuelProcessImpl(taxeSejourAnnuelInfra, tauxTaxeSejourInfra, localService);
     }
-
 
     @Bean
-    CreateTauxTaxeAnnuelProcess createTauxTaxeAnnuelProcess(
-            final TaxeSejourAnnuelDao taxeSejourAnnuelDao,
-            final LocalService localService,
-            final TauxTaxeSejourDao tauxTaxeSejourDao) {
-        return new CreateTauxTaxeAnnuelProcessImpl(taxeSejourAnnuelDao, tauxTaxeSejourDao, localService);
+    public CreateTaxeTrimProcess createTaxeTrimProcess(
+            TaxeSejourAnnuelInfra taxeSejourAnnuelInfra,
+            TaxeSejourTrimInfra taxeSejourTrimInfra,
+            TauxTaxeSejourInfra tauxTaxeSejourInfra,
+            TauxRetardTaxeSejourTrimInfra tauxRetardTaxeSejourTrimInfra
+    ) {
+        return new CreateTaxeTrimProcessImpl(taxeSejourTrimInfra, taxeSejourAnnuelInfra, tauxTaxeSejourInfra, tauxRetardTaxeSejourTrimInfra);
     }
+
+
+
+
+
 }

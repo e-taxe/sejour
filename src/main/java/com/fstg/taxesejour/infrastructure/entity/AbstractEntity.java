@@ -23,9 +23,9 @@ public class AbstractEntity implements Serializable {
     @Column(unique = true)
     String ref;
     @CreatedDate
-    Instant created_at;
+    Instant createdAt;
     @LastModifiedDate
-    Instant updated_at;
+    Instant updatedAt;
 
 
 }

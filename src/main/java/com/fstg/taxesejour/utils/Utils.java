@@ -13,14 +13,12 @@ import java.util.Date;
 
 @Slf4j
 public class Utils {
+    private Utils() {
+    }
+
     public static Date stringToDate(String date) {
-//        LocalDate localDate = LocalDate.parse(date);
-//        ZoneId defaultZoneId = ZoneId.systemDefault();
-//        //local date + atStartOfDay() + default time zone + toInstant() = Date
-//        return Date.from(Instant.parse(localDate.atStartOfDay(defaultZoneId).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         try {
-            Date date1 = new SimpleDateFormat("yyyy-mm-dd").parse(date);
-            return date1;
+            return new SimpleDateFormat("yyyy-mm-dd").parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -36,32 +34,58 @@ public class Utils {
         return new BigDecimal(input);
     }
 
-    public static int getNumberOfMonthRetard(Date datePresentation, Date expectedDatePresentation) {
-        if (expectedDatePresentation != null) {
-            if (datePresentation == null) datePresentation = new Date();
-            long difference_In_Time = datePresentation.getTime() - expectedDatePresentation.getTime();
-            return (int) ((difference_In_Time / (1000 * 60 * 60 * 24)) % 365) / 30;
+    public static int getNumberOfMonthRetard(Date datePresentation, int numTrim, int annee) {
+        StringBuilder stringBuilder = new StringBuilder();
+        switch (numTrim) {
+            case 1:
+                stringBuilder.append(annee).append("-03").append("-31");
+                break;
+            case 2:
+                stringBuilder.append(annee).append("-06").append("-30");
+                break;
+            case 3:
+                stringBuilder.append(annee).append("-09").append("-30");
+                break;
+            case 4:
+                stringBuilder.append(annee).append("-12").append("-31");
+                break;
+            default:
+                return -1;
         }
-//        TODO Calculate expectedDatePresentation
-        return 0;
+        log.info("test " + stringBuilder.toString());
+        Date expectedDatePresentation = null;
+        try {
+            expectedDatePresentation = new SimpleDateFormat("yyyy-MM-dd").parse(stringBuilder.toString());
+            if (datePresentation == null) datePresentation = new Date();
+            if (isAfter(datePresentation, expectedDatePresentation)) {
+                return 0;
+            }
+            long difference = Math.abs(datePresentation.getTime() - expectedDatePresentation.getTime());
+            return (int) ((difference / (1000 * 60 * 60 * 24)) % 365) / 30;
+        } catch (ParseException e) {
+            return -2;
+        }
+
     }
 
     public static TauxRetardTaxeSejourTrim calculateMontant(int nombreMoisRetard, Double taux, Double taxuRetard, long nombreNuit) {
-        BigDecimal premierMoisRetard = BigDecimal.ZERO;
-        BigDecimal autreMoisRetard = BigDecimal.ZERO;
-        for (int i = 1; i <= nombreMoisRetard; i++) {
-            if (i == 1) {
-                premierMoisRetard = BigDecimal.valueOf(nombreNuit * taux + nombreNuit * taxuRetard);
-            } else {
-                System.out.println("autreMoisRetard " + autreMoisRetard.toString());
-                autreMoisRetard = autreMoisRetard.add(BigDecimal.valueOf(nombreNuit * taux));
-            }
-        }
-        return TauxRetardTaxeSejourTrim.builder()
-                .autreMoisRetard(autreMoisRetard)
-                .premierMoisRetard(premierMoisRetard)
-                .nombreMoisRetard(nombreMoisRetard)
-                .dateApplication(new Date()).build();
+//        BigDecimal premierMoisRetard = BigDecimal.ZERO;
+//        BigDecimal autreMoisRetard = BigDecimal.ZERO;
+//        for (int i = 1; i <= nombreMoisRetard; i++) {
+//            if (i == 1) {
+//                premierMoisRetard = BigDecimal.valueOf(nombreNuit * taux + nombreNuit * taxuRetard);
+//            } else {
+//                System.out.println("autreMoisRetard " + autreMoisRetard.toString());
+//                autreMoisRetard = autreMoisRetard.add(BigDecimal.valueOf(nombreNuit * taux));
+//            }
+//        }
+        return null;
+//        return TauxRetardTaxeSejourTrim.builder()
+//                .autreMoisRetard(autreMoisRetard)
+//                .premierMoisRetard(premierMoisRetard)
+//
+//                .nombreMoisRetard(nombreMoisRetard)
+//                .dateApplicationMax(new Date()).build();
     }
 
     public static boolean isAfter(Date dateMin, Date dateMax) {

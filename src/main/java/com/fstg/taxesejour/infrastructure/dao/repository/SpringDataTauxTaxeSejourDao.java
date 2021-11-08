@@ -13,10 +13,10 @@ public interface SpringDataTauxTaxeSejourDao extends JpaRepository<TauxTaxeSejou
 
     boolean existsByRef(String ref);
 
-    @Query(value =
-            "SELECT * FROM taux_taxe_sejour WHERE date_min_application< :date AND date_max_application > :date",
-            nativeQuery = true)
-    TauxTaxeSejour getCurrentTauxTaxe(String date);
+//    @Query(value =
+//            "SELECT * FROM taux_taxe_sejour WHERE date_min_application< :date AND date_max_application > :date",
+//            nativeQuery = true)
+//    TauxTaxeSejour getCurrentTauxTaxe(String date);
 
 // JPQL
 //    @Query("SELECT a FROM Author a WHERE firstName = ?1 AND lastName = ?2")
