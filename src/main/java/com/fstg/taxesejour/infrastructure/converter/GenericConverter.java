@@ -15,26 +15,26 @@ public interface GenericConverter<E, P> {
 
     P toPojo(E entity);
 
-    default P toPojoTest(E entity) {
-        for (Field fieldDto : entity.getClass().getDeclaredFields()) {
-            try {
-                PropertyDescriptor pdGet = new PropertyDescriptor(fieldDto.getName(), this.getClass());
-                PropertyDescriptor pdSet = new PropertyDescriptor(fieldDto.getName(), entity.getClass());
-                Object newInstance = pdSet.getPropertyType().newInstance();
-                Object obj = pdGet.getReadMethod().invoke((P) this);
-                pdSet.getWriteMethod().invoke(entity, ((GenericConverter<E, P>) obj).toPojoTest((E) newInstance));
-            } catch (IntrospectionException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return P;
-    }
+//    default P toPojoTest(E entity) {
+//        for (Field fieldDto : entity.getClass().getDeclaredFields()) {
+//            try {
+//                PropertyDescriptor pdGet = new PropertyDescriptor(fieldDto.getName(), this.getClass());
+//                PropertyDescriptor pdSet = new PropertyDescriptor(fieldDto.getName(), entity.getClass());
+//                Object newInstance = pdSet.getPropertyType().newInstance();
+//                Object obj = pdGet.getReadMethod().invoke((P) this);
+//                pdSet.getWriteMethod().invoke(entity, ((GenericConverter<E, P>) obj).toPojoTest((E) newInstance));
+//            } catch (IntrospectionException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return P;
+//    }
 
     E updateEntity(E entity, P pojo);
 
