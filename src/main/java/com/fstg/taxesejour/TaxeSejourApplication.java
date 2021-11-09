@@ -1,6 +1,6 @@
 package com.fstg.taxesejour;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -16,9 +16,6 @@ public class TaxeSejourApplication {
 		SpringApplication.run(TaxeSejourApplication.class, args);
 	}
 
-	@Bean()
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
+
 
 }

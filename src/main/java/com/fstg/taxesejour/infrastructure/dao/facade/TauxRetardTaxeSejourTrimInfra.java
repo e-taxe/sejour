@@ -8,4 +8,5 @@ public interface TauxRetardTaxeSejourTrimInfra extends AbstractInfra<TauxRetardT
     int deleteByRef(String ref);
 
     boolean existsByRef(String ref);
+    TauxRetardTaxeSejourTrim getTauxByCurrnetDate(String date);
 }

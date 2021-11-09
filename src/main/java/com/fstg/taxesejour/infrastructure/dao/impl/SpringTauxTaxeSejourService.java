@@ -42,6 +42,11 @@ public class SpringTauxTaxeSejourService extends AbstractInfraImpl implements Ta
         return springTauxTaxeSejourDao.existsByRef(ref);
     }
 
+    @Override
+    public TauxTaxeSejour getCurrentTauxTaxe(String date) {
+        return springTauxTaxeSejourDao.getTauxByCurrnetDate(date);
+    }
+
 //    @Override
 //    public TauxTaxeSejour getCurrentTauxTaxe(String date) {
 //        return springTauxTaxeSejourDao.getCurrentTauxTaxe(date);

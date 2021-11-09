@@ -26,12 +26,11 @@ public class BeanConfiguration {
 
     @Bean
     public CreateTaxeTrimProcess createTaxeTrimProcess(
-            TaxeSejourAnnuelInfra taxeSejourAnnuelInfra,
             TaxeSejourTrimInfra taxeSejourTrimInfra,
             TauxTaxeSejourInfra tauxTaxeSejourInfra,
             TauxRetardTaxeSejourTrimInfra tauxRetardTaxeSejourTrimInfra
     ) {
-        return new CreateTaxeTrimProcessImpl(taxeSejourTrimInfra, taxeSejourAnnuelInfra, tauxTaxeSejourInfra, tauxRetardTaxeSejourTrimInfra);
+        return new CreateTaxeTrimProcessImpl(taxeSejourTrimInfra, tauxTaxeSejourInfra, tauxRetardTaxeSejourTrimInfra);
     }
 
 

@@ -42,4 +42,9 @@ public class TauxRetardTaxeSejourTrimImpl extends AbstractInfraImpl implements T
     public boolean existsByRef(String ref) {
         return springDataTauxRetardTaxeSejourTrim.existsByRef(ref);
     }
+
+    @Override
+    public TauxRetardTaxeSejourTrim getTauxByCurrnetDate(String date) {
+        return springDataTauxRetardTaxeSejourTrim.getTauxByCurrnetDate(date);
+    }
 }

@@ -9,5 +9,5 @@ public interface TauxTaxeSejourInfra extends AbstractInfra<TauxTaxeSejour, Long>
 
     boolean existsByRef(String ref);
 
-//    TauxTaxeSejour getCurrentTauxTaxe(String date);
+    TauxTaxeSejour getCurrentTauxTaxe(String date);
 }

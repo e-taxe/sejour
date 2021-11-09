@@ -2,13 +2,12 @@ package com.fstg.taxesejour.application.rest.api;
 
 import com.fstg.taxesejour.domaine.core.Result;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
+import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import static com.fstg.taxesejour.utils.Constant.TAXE_TRIM_ENDPOINT;
 
@@ -58,4 +57,8 @@ public interface TaxeSejourTrimApi {
             @ApiResponse(code = 201, message = "Add new Taxe Sejour")
     })
     Result save(@RequestBody TaxeSejourTrimPojo taxeSejourTrim);
+
+
+    @GetMapping("/date/{date}")
+    TauxTaxeSejour getTauxByCurrnetDate(@PathVariable String date);
 }

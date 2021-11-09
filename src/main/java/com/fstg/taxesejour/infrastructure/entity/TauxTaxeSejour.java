@@ -20,7 +20,6 @@ import java.util.Date;
 @Builder
 @ToString
 public class TauxTaxeSejour extends AbstractEntity {
-
     @Temporal(TemporalType.DATE)
     Date dateMinApplication;
     @Temporal(TemporalType.DATE)

@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaxeSejourTrimConverter {
     public TaxeSejourTrim voToBean(TaxeSejourTrimDto taxeSejourTrimDtoVO) {
-        return TaxeSejourTrim.builder()
-                .annee(Integer.parseInt(taxeSejourTrimDtoVO.getAnnee()))
-                .ref(taxeSejourTrimDtoVO.getRef())
-                .numTrim(Integer.parseInt(taxeSejourTrimDtoVO.getNumTrim()))
-                .build();
+//        return TaxeSejourTrim.builder()
+//                .annee(Integer.parseInt(taxeSejourTrimDtoVO.getAnnee()))
+//                .ref(taxeSejourTrimDtoVO.getRef())
+//                .numTrim(Integer.parseInt(taxeSejourTrimDtoVO.getNumTrim()))
+//                .build();
+        return null;
     }
 
 }
