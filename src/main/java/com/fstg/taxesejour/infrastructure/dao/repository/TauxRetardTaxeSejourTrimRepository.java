@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpringDataTauxRetardTaxeSejourTrim extends JpaRepository<TauxRetardTaxeSejourTrim, Long> {
+public interface TauxRetardTaxeSejourTrimRepository extends JpaRepository<TauxRetardTaxeSejourTrim, Long> {
     TauxRetardTaxeSejourTrim findByRef(String ref);
 
     int deleteByRef(String ref);

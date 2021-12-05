@@ -3,7 +3,7 @@ package com.fstg.taxesejour.infrastructure.dao.facade;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourTrim;
 
-public interface TaxeSejourTrimInfra extends AbstractInfra<TaxeSejourTrimPojo, Long> {
+public interface TaxeSejourTrimInfra extends AbstractInfra<TaxeSejourTrimPojo> {
 
 
     TaxeSejourTrimPojo findByRef(String ref);
@@ -15,8 +15,5 @@ public interface TaxeSejourTrimInfra extends AbstractInfra<TaxeSejourTrimPojo, L
     TaxeSejourTrimPojo findByAnnee(int annee);
 
     boolean existsByAnneeAndNumTrim(int annee, int numTrim);
-
-//    TaxeSejourTrim findByDateValidation(Date dateValidation);
-
 
 }

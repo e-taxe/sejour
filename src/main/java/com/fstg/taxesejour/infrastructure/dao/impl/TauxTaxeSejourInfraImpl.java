@@ -1,21 +1,19 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
-import com.fstg.taxesejour.infrastructure.core.AbstractInfraImpl;
+
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourInfra;
-import com.fstg.taxesejour.infrastructure.dao.repository.SpringDataTauxTaxeSejourDao;
+import com.fstg.taxesejour.infrastructure.dao.repository.TauxTaxeSejourRepository;
 import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
 @Component
-public class SpringTauxTaxeSejourService extends AbstractInfraImpl implements TauxTaxeSejourInfra {
-    private final SpringDataTauxTaxeSejourDao springTauxTaxeSejourDao;
-
-    public SpringTauxTaxeSejourService(SpringDataTauxTaxeSejourDao springTauxTaxeSejourDao) {
-        this.springTauxTaxeSejourDao = springTauxTaxeSejourDao;
-    }
+@RequiredArgsConstructor
+public class TauxTaxeSejourInfraImpl implements TauxTaxeSejourInfra {
+    private final TauxTaxeSejourRepository springTauxTaxeSejourDao;
 
     @Override
     public TauxTaxeSejour save(TauxTaxeSejour entity) {

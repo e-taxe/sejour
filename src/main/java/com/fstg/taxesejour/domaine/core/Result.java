@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Result<T,K> {
-    private List<Message> messages;
     private List<Message> errors;
     private List<Message> warnings;
     private List<Message> infos;
     private int status;
-    private String message;
     // pour la communication entre process
     private T input; // input du premier process
     private K output; // output du premier process
@@ -36,9 +34,9 @@ public class Result<T,K> {
         this.status = -1;
     }
 
-    public void addInfoMessage(String message) {
+    public void addInfoMessage(String message,int status) {
         addMessage(message, MessageType.INFO);
-        this.status = 2;
+        this.status = status;
     }
 
     public void addWarningMessage(String message) {
@@ -55,27 +53,8 @@ public class Result<T,K> {
         } else if (type == MessageType.INFO) {
             getInfos().add(message);
         }
-        getMessages().add(message);
-        constructTextMessage(message);
     }
 
-    private void constructTextMessage(Message myMessage) {
-        if(message==null){
-            message ="";
-        }
-        message+=myMessage.getLabel();
-    }
-
-    public List<Message> getMessages() {
-        if (messages == null) {
-            messages = new ArrayList<>();
-        }
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
 
     public int getStatus() {
         return status;
@@ -85,13 +64,6 @@ public class Result<T,K> {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public T getInput() {
         return input;

@@ -2,7 +2,7 @@ package com.fstg.taxesejour.infrastructure.dao.facade;
 
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
 
-public interface TaxeSejourAnnuelInfra extends AbstractInfra<TaxeSejourAnnuele,Long> {
+public interface TaxeSejourAnnuelInfra extends AbstractInfra<TaxeSejourAnnuele> {
 
 
     TaxeSejourAnnuele findByRef(String ref);

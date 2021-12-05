@@ -2,7 +2,7 @@ package com.fstg.taxesejour.infrastructure.dao.facade;
 
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
 
-public interface TauxRetardTaxeSejourTrimInfra extends AbstractInfra<TauxRetardTaxeSejourTrim, Long> {
+public interface TauxRetardTaxeSejourTrimInfra extends AbstractInfra<TauxRetardTaxeSejourTrim> {
     TauxRetardTaxeSejourTrim findByRef(String ref);
 
     int deleteByRef(String ref);

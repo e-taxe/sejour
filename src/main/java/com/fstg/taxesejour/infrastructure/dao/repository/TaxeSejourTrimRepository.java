@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpringDataTaxeSejourTrimDao extends JpaRepository<TaxeSejourTrim, Long> {
+public interface TaxeSejourTrimRepository extends JpaRepository<TaxeSejourTrim, Long> {
     //    converter from POJO TO ENTITY and inverse
     TaxeSejourTrim findByRef(String ref);
 

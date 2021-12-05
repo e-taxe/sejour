@@ -1,6 +1,6 @@
 package com.fstg.taxesejour.domaine.core;
 
-public abstract class AbstractProcessImpl<T extends AbstractProcessInput> {
+public abstract class AbstractProcessImpl<T> {
     public Result execute(T abstractProcessInput) {
         Result result = new Result();
         if (validateProcess(abstractProcessInput, result)) {

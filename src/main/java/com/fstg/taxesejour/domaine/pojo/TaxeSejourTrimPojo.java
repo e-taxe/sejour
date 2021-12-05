@@ -16,6 +16,7 @@ public class TaxeSejourTrimPojo {
     int numTrim;
     int annee;
     Long nombreNuit;
+    String refLocal;
     BigDecimal montant;
     BigDecimal montantRetard;
     Date datePresentation;

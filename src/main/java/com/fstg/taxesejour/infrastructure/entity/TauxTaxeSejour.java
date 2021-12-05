@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity(name = "tauxTaxeSejour")
+@Entity
 @Table(name = "tauxTaxeSejour")
 @Data
 @Builder

@@ -60,14 +60,14 @@ public class Utils {
         }
     }
 
-    public static int getNumberOfMonthRetard(TaxeSejourTrimPojo taxeSejourTrimPojo) {
-        taxeSejourTrimPojo.setDatePresentation(new Date());
-        Date expectedDatePresentation = expectedDate(taxeSejourTrimPojo.getDatePresentation(), taxeSejourTrimPojo.getNumTrim(), taxeSejourTrimPojo.getAnnee());
+    public static int getNumberOfMonthRetard(int numTrim, int annee) {
+        Date datePresentation = new Date();
+        Date expectedDatePresentation = expectedDate(datePresentation, numTrim, annee);
         if (expectedDatePresentation == null) return -1;
-        if (isAfter(taxeSejourTrimPojo.getDatePresentation(), expectedDatePresentation)) {
+        if (isAfter(datePresentation, expectedDatePresentation)) {
             return 0; // ila b4a ikhls xi trim en avance cad nombreMoisRetard =0;
         }
-        return monthsBetween(taxeSejourTrimPojo.getDatePresentation(), expectedDatePresentation);
+        return monthsBetween(datePresentation, expectedDatePresentation);
     }
 
     public static int monthsBetween(Date d1, Date d2) {
@@ -83,9 +83,10 @@ public class Utils {
     }
 
 
-    public static TaxeSejourTrimPojo getMontant(Double taux, TaxeSejourTrimPojo taxeSejourTrimPojo, Double tauxRetardPremierMois, Double tauxRetardAutreMois, int nombreMoiRetard) {
-        taxeSejourTrimPojo.setMontant(getMontant(taux, taxeSejourTrimPojo.getNombreNuit()));
-        taxeSejourTrimPojo.setMontantRetard(calculateMontantRetard(tauxRetardPremierMois, tauxRetardAutreMois, taxeSejourTrimPojo.getNombreNuit(), nombreMoiRetard));
+    public static TaxeSejourTrimPojo getMontant(Double taux,  TaxeSejourTrimPojo taxeSejourTrimPojo, Double tauxRetardPremierMois, Double tauxRetardAutreMois, long nombreNuit, int nombreMoiRetard) {
+        taxeSejourTrimPojo.setMontant(getMontant(taux, nombreNuit));
+        taxeSejourTrimPojo.setNombreNuit(nombreNuit);
+        taxeSejourTrimPojo.setMontantRetard(calculateMontantRetard(tauxRetardPremierMois, tauxRetardAutreMois, nombreNuit, nombreMoiRetard));
         return taxeSejourTrimPojo;
     }
 

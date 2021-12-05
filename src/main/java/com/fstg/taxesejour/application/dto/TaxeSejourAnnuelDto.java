@@ -14,11 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaxeSejourAnnuelDto {
-    Long id;
     String ref;
     int annee;
     BigDecimal nombreNuit;
     String refLocal;
+    int numTrim;
     Date datePresentation;
+
 
 }

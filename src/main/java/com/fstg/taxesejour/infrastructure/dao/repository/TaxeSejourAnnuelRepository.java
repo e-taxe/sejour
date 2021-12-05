@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpringDataTaxeSejourAnnuelDao extends JpaRepository<TaxeSejourAnnuele, Long> {
+public interface TaxeSejourAnnuelRepository extends JpaRepository<TaxeSejourAnnuele, Long> {
     TaxeSejourAnnuele findByRef(String ref);
 
     int deleteByRef(String ref);

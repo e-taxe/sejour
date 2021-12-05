@@ -1,50 +1,49 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
-import com.fstg.taxesejour.infrastructure.core.AbstractInfraImpl;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimInfra;
-import com.fstg.taxesejour.infrastructure.dao.repository.SpringDataTauxRetardTaxeSejourTrim;
+import com.fstg.taxesejour.infrastructure.dao.repository.TauxRetardTaxeSejourTrimRepository;
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class TauxRetardTaxeSejourTrimImpl extends AbstractInfraImpl implements TauxRetardTaxeSejourTrimInfra {
+public class TauxRetardTaxeSejourTrimImpl implements TauxRetardTaxeSejourTrimInfra {
 
-    private final SpringDataTauxRetardTaxeSejourTrim springDataTauxRetardTaxeSejourTrim;
+    private final TauxRetardTaxeSejourTrimRepository tauxRetardTaxeSejourTrimRepository;
 
-    public TauxRetardTaxeSejourTrimImpl(SpringDataTauxRetardTaxeSejourTrim springDataTauxRetardTaxeSejourTrim) {
-        this.springDataTauxRetardTaxeSejourTrim = springDataTauxRetardTaxeSejourTrim;
+    public TauxRetardTaxeSejourTrimImpl(TauxRetardTaxeSejourTrimRepository tauxRetardTaxeSejourTrimRepository) {
+        this.tauxRetardTaxeSejourTrimRepository = tauxRetardTaxeSejourTrimRepository;
     }
 
     @Override
     public TauxRetardTaxeSejourTrim save(TauxRetardTaxeSejourTrim entity) {
-        return springDataTauxRetardTaxeSejourTrim.save(entity);
+        return tauxRetardTaxeSejourTrimRepository.save(entity);
     }
 
     @Override
     public List<TauxRetardTaxeSejourTrim> findAll() {
-        return springDataTauxRetardTaxeSejourTrim.findAll();
+        return tauxRetardTaxeSejourTrimRepository.findAll();
     }
 
 
     @Override
     public TauxRetardTaxeSejourTrim findByRef(String ref) {
-        return springDataTauxRetardTaxeSejourTrim.findByRef(ref);
+        return tauxRetardTaxeSejourTrimRepository.findByRef(ref);
     }
 
     @Override
     public int deleteByRef(String ref) {
-        return springDataTauxRetardTaxeSejourTrim.deleteByRef(ref);
+        return tauxRetardTaxeSejourTrimRepository.deleteByRef(ref);
     }
 
     @Override
     public boolean existsByRef(String ref) {
-        return springDataTauxRetardTaxeSejourTrim.existsByRef(ref);
+        return tauxRetardTaxeSejourTrimRepository.existsByRef(ref);
     }
 
     @Override
     public TauxRetardTaxeSejourTrim getTauxByCurrnetDate(String date) {
-        return springDataTauxRetardTaxeSejourTrim.getTauxByCurrnetDate(date);
+        return tauxRetardTaxeSejourTrimRepository.getTauxByCurrnetDate(date);
     }
 }

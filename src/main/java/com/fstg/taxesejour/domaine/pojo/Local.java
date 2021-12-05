@@ -14,4 +14,6 @@ public class Local implements Serializable {
     private String ref;
     private Long id;
     private String nom;
+    int trim;
+    int annee;
 }
