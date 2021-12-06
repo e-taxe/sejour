@@ -33,7 +33,9 @@ public class TaxeSejourTrimDto {
     @NotNull(message = "{validation.nombreNuit_vide}")
     BigDecimal nombreNuit;
 
-    @NotNull(message = "{validation.refTaxeSejourAnnuel_vide}")
+    @NotBlank(message = "{validation.refTaxeSejourAnnuel_vide}")
     String refTaxeSejourAnnuel;
+
+    boolean simulation;
 
 }

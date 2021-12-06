@@ -2,9 +2,12 @@ package com.fstg.taxesejour.domaine.process.taxeSejourAnnuel.create;
 
 import com.fstg.taxesejour.domaine.core.AbstractProcessImpl;
 import com.fstg.taxesejour.domaine.core.Result;
+import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelInfra;
 import com.fstg.taxesejour.infrastructure.messaging.LocalMessageReader;
 import com.fstg.taxesejour.infrastructure.required.LocalService;
+
+import java.util.Date;
 
 public class CreateTaxeAnnuelProcessImpl extends AbstractProcessImpl<CreateTaxeAnnuelInput> implements CreateTaxeAnnuelProcess {
 
@@ -32,7 +35,15 @@ public class CreateTaxeAnnuelProcessImpl extends AbstractProcessImpl<CreateTaxeA
     }
 
     @Override
-    public void run(CreateTaxeAnnuelInput abstractProcessInput, Result result) {
+    public void run(CreateTaxeAnnuelInput createTaxeAnnuelInput, Result result) {
+        TaxeSejourAnnuelePojo taxeSejourAnnuelePojo = new TaxeSejourAnnuelePojo();
+
+        taxeSejourAnnuelePojo.setAnnee(createTaxeAnnuelInput.getAnnee());
+        taxeSejourAnnuelePojo.setNombreNuit(createTaxeAnnuelInput.getNombreNuit());
+        taxeSejourAnnuelePojo.setDatePresentation(new Date());
+        taxeSejourAnnuelePojo.setRef(createTaxeAnnuelInput.getRef());
+
+        taxeSejourAnnuelInfra.save(taxeSejourAnnuelePojo);
         result.addInfoMessage(localMessageReader.getMessage("taxe.annuel.create"), 201);
     }
 }

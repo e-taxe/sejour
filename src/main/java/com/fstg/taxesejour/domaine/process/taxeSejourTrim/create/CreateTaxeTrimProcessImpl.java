@@ -59,29 +59,30 @@ public class CreateTaxeTrimProcessImpl extends AbstractProcessImpl<TaxeSejourTri
 
     @Override
     public void run(TaxeSejourTrimPojo taxeSejourTrimPojo, Result result) {
+        /* par reference */
         getTaxeSejourTrimPojo(taxeSejourTrimPojo);
         taxeSejourTrimPojo.setTauxTaxeSejour(tauxTaxeSejour);
         taxeSejourTrimPojo.setTauxRetardTaxeSejourTrim(tauxRetardTaxeSejourTrim);
-        taxeSejourTrimInfra.save(taxeSejourTrimPojo);
-
+        if (!taxeSejourTrimPojo.isSimulation()) taxeSejourTrimInfra.save(taxeSejourTrimPojo);
+        taxeSejourTrimPojo.setDatePresentation(new Date());
         result.addInfoMessage(localMessageReader.getMessage("taxe-sejour-trim.created"), 201);
-
         Local local = new Local(taxeSejourTrimPojo.getRefLocal(), taxeSejourTrimPojo.getAnnee(), taxeSejourTrimPojo.getNumTrim());
-        localService.update(local);
-        result.addInfoMessage(localMessageReader.getMessage("local.updated"), 202);
+        if (!taxeSejourTrimPojo.isSimulation()) localService.update(local);
+        result.addInfoMessage(localMessageReader.getMessage("local.updated"), 201);
+        result.setOutput(taxeSejourTrimPojo);
 
     }
 
     private void getTaxeSejourTrimPojo(TaxeSejourTrimPojo taxeSejourTrimPojo) {
-        Utils.getMontant(
-                tauxTaxeSejour.getTaux(),
-                taxeSejourTrimPojo,
+        int nombreMoisRetard = Utils.getNumberOfMonthRetard(taxeSejourTrimPojo.getNumTrim(), taxeSejourTrimPojo.getAnnee());
+        taxeSejourTrimPojo.setNombreMoisRetard(nombreMoisRetard);
+        taxeSejourTrimPojo.setMontant(Utils.getMontant(tauxTaxeSejour.getTaux(), taxeSejourTrimPojo.getNombreNuit()));
+        Utils.calculateMontantRetard(
                 tauxRetardTaxeSejourTrim.getPremierMoisRetard(),
+                taxeSejourTrimPojo,
                 tauxRetardTaxeSejourTrim.getAutreMoisRetard(),
-                taxeSejourTrimPojo.getNombreNuit(),
-                Utils.getNumberOfMonthRetard(
-                        taxeSejourTrimPojo.getNumTrim(),
-                        taxeSejourTrimPojo.getAnnee()));
+                nombreMoisRetard
+        );
     }
 
 

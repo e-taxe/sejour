@@ -35,7 +35,7 @@ public class Utils {
         return new BigDecimal(input);
     }
 
-    public static Date expectedDate(Date datePresentation, int numTrim, int annee) {
+    public static Date expectedDate(int numTrim, int annee) {
         StringBuilder stringBuilder = new StringBuilder();
         switch (numTrim) {
             case 1:
@@ -62,7 +62,7 @@ public class Utils {
 
     public static int getNumberOfMonthRetard(int numTrim, int annee) {
         Date datePresentation = new Date();
-        Date expectedDatePresentation = expectedDate(datePresentation, numTrim, annee);
+        Date expectedDatePresentation = expectedDate(numTrim, annee);
         if (expectedDatePresentation == null) return -1;
         if (isAfter(datePresentation, expectedDatePresentation)) {
             return 0; // ila b4a ikhls xi trim en avance cad nombreMoisRetard =0;
@@ -83,22 +83,24 @@ public class Utils {
     }
 
 
-    public static TaxeSejourTrimPojo getMontant(Double taux,  TaxeSejourTrimPojo taxeSejourTrimPojo, Double tauxRetardPremierMois, Double tauxRetardAutreMois, long nombreNuit, int nombreMoiRetard) {
-        taxeSejourTrimPojo.setMontant(getMontant(taux, nombreNuit));
-        taxeSejourTrimPojo.setNombreNuit(nombreNuit);
-        taxeSejourTrimPojo.setMontantRetard(calculateMontantRetard(tauxRetardPremierMois, tauxRetardAutreMois, nombreNuit, nombreMoiRetard));
-        return taxeSejourTrimPojo;
-    }
+//    public static void getMontant(TaxeSejourTrimPojo taxeSejourTrimPojo, Double tauxRetardPremierMois, Double tauxRetardAutreMois, long nombreNuit, int nombreMoiRetard) {
+//        calculateMontantRetard(tauxRetardPremierMois, taxeSejourTrimPojo, tauxRetardAutreMois, nombreNuit, nombreMoiRetard);
+//    }
 
     public static BigDecimal getMontant(Double taux, long nombreNuit) {
         return BigDecimal.valueOf(
                 (nombreNuit * taux));
     }
 
-    public static BigDecimal calculateMontantRetard(Double tauxRetardPremierMois, Double tauxRetardAutreMois, long nombreNuit, int nombreMoiRetard) {
-        return (nombreMoiRetard > 0) ? BigDecimal.valueOf(
-                (nombreNuit * tauxRetardPremierMois) +
-                        ((nombreNuit * tauxRetardAutreMois) * (nombreMoiRetard - 1))) : BigDecimal.ZERO;
+    public static void calculateMontantRetard(Double tauxRetardPremierMois, TaxeSejourTrimPojo taxeSejourTrimPojo, Double tauxRetardAutreMois, int nombreMoiRetard) {
+        if (nombreMoiRetard > 0) {
+            BigDecimal premierMoiRetard = BigDecimal.valueOf(taxeSejourTrimPojo.getNombreNuit() * tauxRetardPremierMois);
+            BigDecimal autreMoisRetard = BigDecimal.valueOf((taxeSejourTrimPojo.getNombreNuit() * tauxRetardAutreMois) * (nombreMoiRetard - 1));
+            taxeSejourTrimPojo.setPremierMoisRetard(premierMoiRetard);
+            taxeSejourTrimPojo.setAutreMoisRetard(autreMoisRetard);
+            taxeSejourTrimPojo.setMontantRetard(premierMoiRetard.add(autreMoisRetard));
+            log.info("data in utils {} ", taxeSejourTrimPojo);
+        }
     }
 
     public static boolean isAfter(Date dateMin, Date dateMax) {

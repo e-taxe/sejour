@@ -29,5 +29,8 @@ public class TaxeSejourTrim extends AbstractEntity {
     TauxTaxeSejour tauxTaxeSejour;
     @OneToOne(optional = true)
     TauxRetardTaxeSejourTrim tauxRetardTaxeSejourTrim;
+    BigDecimal premierMoisRetard;
+    BigDecimal autreMoisRetard;
+    BigDecimal nombreMoisRetard;
 
 }

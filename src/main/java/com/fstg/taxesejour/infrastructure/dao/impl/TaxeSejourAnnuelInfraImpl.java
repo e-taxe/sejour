@@ -1,20 +1,22 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
+import com.fstg.taxesejour.domaine.pojo.TaxeSejourAnnuelePojo;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourAnnuelInfra;
 import com.fstg.taxesejour.infrastructure.dao.repository.TaxeSejourAnnuelRepository;
 import com.fstg.taxesejour.infrastructure.entity.TaxeSejourAnnuele;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TaxeSejourAnnuelInfraImpl implements TaxeSejourAnnuelInfra {
     private final TaxeSejourAnnuelRepository springDtataxeSejourAnnuelDao;
+    private final ModelMapper modelMapper;
 
 
-    public TaxeSejourAnnuelInfraImpl(TaxeSejourAnnuelRepository springDtataxeSejourAnnuelDao) {
-        this.springDtataxeSejourAnnuelDao = springDtataxeSejourAnnuelDao;
-    }
 
     @Override
     public List<TaxeSejourAnnuele> findAll() {
@@ -41,6 +43,13 @@ public class TaxeSejourAnnuelInfraImpl implements TaxeSejourAnnuelInfra {
     @Override
     public boolean existsByRef(String ref) {
         return springDtataxeSejourAnnuelDao.existsByRef(ref);
+    }
+
+    @Override
+    public TaxeSejourAnnuelePojo save(TaxeSejourAnnuelePojo taxeSejourAnnuelePojo) {
+      TaxeSejourAnnuele taxeSejourAnnuele=modelMapper.map(taxeSejourAnnuelePojo,TaxeSejourAnnuele.class);
+        springDtataxeSejourAnnuelDao.save(taxeSejourAnnuele);
+        return taxeSejourAnnuelePojo;
     }
 
 

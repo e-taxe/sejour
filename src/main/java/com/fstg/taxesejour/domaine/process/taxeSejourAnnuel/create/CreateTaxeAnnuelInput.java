@@ -3,7 +3,6 @@ package com.fstg.taxesejour.domaine.process.taxeSejourAnnuel.create;
 import com.fstg.taxesejour.domaine.core.AbstractProcessInput;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 public class CreateTaxeAnnuelInput extends AbstractProcessInput {
@@ -11,7 +10,6 @@ public class CreateTaxeAnnuelInput extends AbstractProcessInput {
     private int annee;
     private BigDecimal nombreNuit;
     private String refLocal;
-    private Date datePresentation;
 
     @Override
     public String toString() {
@@ -20,7 +18,6 @@ public class CreateTaxeAnnuelInput extends AbstractProcessInput {
                 ", annee=" + annee +
                 ", nombreNuit=" + nombreNuit +
                 ", refLocal='" + refLocal + '\'' +
-                ", datePresentation=" + datePresentation +
                 '}';
     }
 
@@ -56,11 +53,4 @@ public class CreateTaxeAnnuelInput extends AbstractProcessInput {
         this.refLocal = refLocal;
     }
 
-    public Date getDatePresentation() {
-        return datePresentation;
-    }
-
-    public void setDatePresentation(Date datePresentation) {
-        this.datePresentation = datePresentation;
-    }
 }
