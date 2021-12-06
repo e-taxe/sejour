@@ -1,20 +1,22 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
+import com.fstg.taxesejour.domaine.pojo.TauxRetardTaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimInfra;
 import com.fstg.taxesejour.infrastructure.dao.repository.TauxRetardTaxeSejourTrimRepository;
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TauxRetardTaxeSejourTrimImpl implements TauxRetardTaxeSejourTrimInfra {
 
     private final TauxRetardTaxeSejourTrimRepository tauxRetardTaxeSejourTrimRepository;
+    private final ModelMapper modelMapper;
 
-    public TauxRetardTaxeSejourTrimImpl(TauxRetardTaxeSejourTrimRepository tauxRetardTaxeSejourTrimRepository) {
-        this.tauxRetardTaxeSejourTrimRepository = tauxRetardTaxeSejourTrimRepository;
-    }
 
     @Override
     public TauxRetardTaxeSejourTrim save(TauxRetardTaxeSejourTrim entity) {
@@ -43,7 +45,7 @@ public class TauxRetardTaxeSejourTrimImpl implements TauxRetardTaxeSejourTrimInf
     }
 
     @Override
-    public TauxRetardTaxeSejourTrim getTauxByCurrnetDate(String date) {
-        return tauxRetardTaxeSejourTrimRepository.getTauxByCurrnetDate(date);
+    public TauxRetardTaxeSejourTrimPojo getTauxByCurrnetDate(String date) {
+        return modelMapper.map(tauxRetardTaxeSejourTrimRepository.getTauxByCurrnetDate(date), TauxRetardTaxeSejourTrimPojo.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.fstg.taxesejour.infrastructure.dao.facade;
 
+import com.fstg.taxesejour.domaine.pojo.TauxTaxeSejourPojo;
 import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
 
 public interface TauxTaxeSejourInfra extends AbstractInfra<TauxTaxeSejour> {
@@ -9,5 +10,5 @@ public interface TauxTaxeSejourInfra extends AbstractInfra<TauxTaxeSejour> {
 
     boolean existsByRef(String ref);
 
-    TauxTaxeSejour getCurrentTauxTaxe(String date);
+    TauxTaxeSejourPojo getCurrentTauxTaxe(String date);
 }

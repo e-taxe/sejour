@@ -1,10 +1,12 @@
 package com.fstg.taxesejour.infrastructure.dao.impl;
 
 
+import com.fstg.taxesejour.domaine.pojo.TauxTaxeSejourPojo;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourInfra;
 import com.fstg.taxesejour.infrastructure.dao.repository.TauxTaxeSejourRepository;
 import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TauxTaxeSejourInfraImpl implements TauxTaxeSejourInfra {
     private final TauxTaxeSejourRepository springTauxTaxeSejourDao;
+    private final ModelMapper modelMapper;
 
     @Override
     public TauxTaxeSejour save(TauxTaxeSejour entity) {
@@ -41,8 +44,8 @@ public class TauxTaxeSejourInfraImpl implements TauxTaxeSejourInfra {
     }
 
     @Override
-    public TauxTaxeSejour getCurrentTauxTaxe(String date) {
-        return springTauxTaxeSejourDao.getTauxByCurrnetDate(date);
+    public TauxTaxeSejourPojo getCurrentTauxTaxe(String date) {
+        return modelMapper.map(springTauxTaxeSejourDao.getTauxByCurrnetDate(date), TauxTaxeSejourPojo.class);
     }
 
 //    @Override

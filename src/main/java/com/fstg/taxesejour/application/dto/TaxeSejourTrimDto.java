@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class TaxeSejourTrimDto {
     String refLocal;
 
     @NotNull(message = "{validation.numTrim_vide}")
+    @Max(message = "{validation.numTrim_max_value}", value = 4)
     int numTrim;
 
     @NotNull(message = "{validation.annee_vide}")

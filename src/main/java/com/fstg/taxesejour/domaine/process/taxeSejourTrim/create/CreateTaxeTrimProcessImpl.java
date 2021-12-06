@@ -3,12 +3,12 @@ package com.fstg.taxesejour.domaine.process.taxeSejourTrim.create;
 import com.fstg.taxesejour.domaine.core.AbstractProcessImpl;
 import com.fstg.taxesejour.domaine.core.Result;
 import com.fstg.taxesejour.domaine.pojo.Local;
+import com.fstg.taxesejour.domaine.pojo.TauxRetardTaxeSejourTrimPojo;
+import com.fstg.taxesejour.domaine.pojo.TauxTaxeSejourPojo;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxRetardTaxeSejourTrimInfra;
 import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourInfra;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimInfra;
-import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
-import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
 import com.fstg.taxesejour.infrastructure.messaging.LocalMessageReader;
 import com.fstg.taxesejour.infrastructure.required.LocalService;
 import com.fstg.taxesejour.utils.Utils;
@@ -19,8 +19,8 @@ import java.util.Date;
 @Slf4j
 public class CreateTaxeTrimProcessImpl extends AbstractProcessImpl<TaxeSejourTrimPojo> implements CreateTaxeTrimProcess {
 
-    private TauxTaxeSejour tauxTaxeSejour;
-    private TauxRetardTaxeSejourTrim tauxRetardTaxeSejourTrim;
+    private TauxTaxeSejourPojo tauxTaxeSejour;
+    private TauxRetardTaxeSejourTrimPojo tauxRetardTaxeSejourTrim;
     private final TaxeSejourTrimInfra taxeSejourTrimInfra;
     private final TauxTaxeSejourInfra tauxTaxeSejourInfra;
     private final TauxRetardTaxeSejourTrimInfra tauxRetardTaxeSejourTrimInfra;
@@ -45,7 +45,7 @@ public class CreateTaxeTrimProcessImpl extends AbstractProcessImpl<TaxeSejourTri
             result.addErrorMessage(localMessageReader.getMessage("taxe.trim.alreadyEsiste"));
         }
         if (taxeSejourTrimInfra.existsByAnneeAndNumTrim(createTaxeTrimInput.getAnnee(), createTaxeTrimInput.getNumTrim())) {
-            result.addErrorMessage(localMessageReader.getMessage("taxe.trim.alreadyEsiste"));
+            result.addErrorMessage(localMessageReader.getMessage("taxe.trim.alreadyEsiste_annee_trim"));
         }
         tauxTaxeSejour = tauxTaxeSejourInfra.getCurrentTauxTaxe(Utils.dateToString(new Date()));
         if (tauxTaxeSejour == null) {
@@ -59,27 +59,29 @@ public class CreateTaxeTrimProcessImpl extends AbstractProcessImpl<TaxeSejourTri
 
     @Override
     public void run(TaxeSejourTrimPojo taxeSejourTrimPojo, Result result) {
+        getTaxeSejourTrimPojo(taxeSejourTrimPojo);
+        taxeSejourTrimPojo.setTauxTaxeSejour(tauxTaxeSejour);
+        taxeSejourTrimPojo.setTauxRetardTaxeSejourTrim(tauxRetardTaxeSejourTrim);
+        taxeSejourTrimInfra.save(taxeSejourTrimPojo);
 
-        int nombreMoisRetard = Utils.getNumberOfMonthRetard(
-                taxeSejourTrimPojo.getNumTrim(),
-                taxeSejourTrimPojo.getAnnee());
+        result.addInfoMessage(localMessageReader.getMessage("taxe-sejour-trim.created"), 201);
+
+        Local local = new Local(taxeSejourTrimPojo.getRefLocal(), taxeSejourTrimPojo.getAnnee(), taxeSejourTrimPojo.getNumTrim());
+        localService.update(local);
+        result.addInfoMessage(localMessageReader.getMessage("local.updated"), 202);
+
+    }
+
+    private void getTaxeSejourTrimPojo(TaxeSejourTrimPojo taxeSejourTrimPojo) {
         Utils.getMontant(
                 tauxTaxeSejour.getTaux(),
                 taxeSejourTrimPojo,
                 tauxRetardTaxeSejourTrim.getPremierMoisRetard(),
                 tauxRetardTaxeSejourTrim.getAutreMoisRetard(),
                 taxeSejourTrimPojo.getNombreNuit(),
-                nombreMoisRetard);
-        taxeSejourTrimInfra.save(taxeSejourTrimPojo);
-
-        result.addInfoMessage(localMessageReader.getMessage("taxe-sejour-trim.created"), 201);
-        Local local = new Local();
-        local.setAnnee(taxeSejourTrimPojo.getAnnee());
-        local.setTrim(taxeSejourTrimPojo.getNumTrim());
-        local.setRef(taxeSejourTrimPojo.getRefLocal());
-        localService.update(local);
-        result.addInfoMessage(localMessageReader.getMessage("local.updated"), 202);
-
+                Utils.getNumberOfMonthRetard(
+                        taxeSejourTrimPojo.getNumTrim(),
+                        taxeSejourTrimPojo.getAnnee()));
     }
 
 

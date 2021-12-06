@@ -21,5 +21,8 @@ public class TaxeSejourTrimPojo {
     BigDecimal montantRetard;
     Date datePresentation;
 
+    TauxTaxeSejourPojo tauxTaxeSejour;
+    TauxRetardTaxeSejourTrimPojo tauxRetardTaxeSejourTrim;
+
 
 }

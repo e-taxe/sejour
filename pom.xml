@@ -120,6 +120,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>taxe-sejour</finalName>
 	</build>
 
 </project>

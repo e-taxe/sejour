@@ -1,19 +1,17 @@
 package com.fstg.taxesejour.application.rest;
 
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDto;
+import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
 import com.fstg.taxesejour.domaine.core.Result;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.domaine.process.taxeSejourTrim.create.CreateTaxeTrimProcess;
-import com.fstg.taxesejour.infrastructure.dao.facade.TauxTaxeSejourInfra;
-import com.fstg.taxesejour.infrastructure.entity.TauxTaxeSejour;
-import com.fstg.taxesejour.utils.Utils;
+import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimInfra;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +22,12 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
 
 
     private final CreateTaxeTrimProcess createTaxeTrimProcess;
-    private final TauxTaxeSejourInfra tauxTaxeSejourInfra;
+    private final TaxeSejourTrimInfra taxeSejourTrimInfra;
     private final ModelMapper modelMapper;
 
     @Override
-    public List<TaxeSejourTrimDto> findAll() {
-        return tauxTaxeSejourInfra.findAll().stream().map(el -> modelMapper.map(el, TaxeSejourTrimDto.class))
+    public List<TaxeSejourTrimDtoResponse> findAll() {
+        return taxeSejourTrimInfra.findAll().stream().map(e -> modelMapper.map(e, TaxeSejourTrimDtoResponse.class))
                 .collect(Collectors.toList());
     }
 
@@ -40,10 +38,4 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
         return createTaxeTrimProcess.execute(taxeSejourTrimPojo);
     }
 
-    @Override
-    public TauxTaxeSejour getTauxByCurrnetDate(String date) {
-        TauxTaxeSejour tauxTaxeSejour = tauxTaxeSejourInfra.getCurrentTauxTaxe(Utils.dateToString(new Date()));
-//        log.info("valeur {}", tauxTaxeSejour);
-        return tauxTaxeSejour;
-    }
 }

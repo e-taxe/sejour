@@ -1,5 +1,6 @@
 package com.fstg.taxesejour.infrastructure.dao.facade;
 
+import com.fstg.taxesejour.domaine.pojo.TauxRetardTaxeSejourTrimPojo;
 import com.fstg.taxesejour.infrastructure.entity.TauxRetardTaxeSejourTrim;
 
 public interface TauxRetardTaxeSejourTrimInfra extends AbstractInfra<TauxRetardTaxeSejourTrim> {
@@ -8,5 +9,5 @@ public interface TauxRetardTaxeSejourTrimInfra extends AbstractInfra<TauxRetardT
     int deleteByRef(String ref);
 
     boolean existsByRef(String ref);
-    TauxRetardTaxeSejourTrim getTauxByCurrnetDate(String date);
+    TauxRetardTaxeSejourTrimPojo getTauxByCurrnetDate(String date);
 }

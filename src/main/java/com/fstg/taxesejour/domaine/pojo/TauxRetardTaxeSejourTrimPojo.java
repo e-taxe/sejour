@@ -1,17 +1,19 @@
 package com.fstg.taxesejour.domaine.pojo;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 public class TauxRetardTaxeSejourTrimPojo {
+    Long id;
     Double premierMoisRetard; // 10DH
     Double autreMoisRetard; // 7DH
     Date dateApplicationMin;

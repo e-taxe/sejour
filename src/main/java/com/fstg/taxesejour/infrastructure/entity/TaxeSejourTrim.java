@@ -23,8 +23,6 @@ public class TaxeSejourTrim extends AbstractEntity {
     Long nombreNuit;
     BigDecimal montant;
     BigDecimal montantRetard;
-    @ManyToOne()
-    TaxeSejourAnnuele taxeSejourAnnuele;
     @Temporal(TemporalType.DATE)
     Date datePresentation;
     @ManyToOne()
