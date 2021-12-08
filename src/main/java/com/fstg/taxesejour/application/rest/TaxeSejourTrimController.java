@@ -7,9 +7,11 @@ import com.fstg.taxesejour.domaine.core.Result;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.domaine.process.taxeSejourTrim.create.CreateTaxeTrimProcess;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimInfra;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     private final CreateTaxeTrimProcess createTaxeTrimProcess;
     private final TaxeSejourTrimInfra taxeSejourTrimInfra;
     private final ModelMapper modelMapper;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final Gson jsonConverter;
 
     @Override
     public List<TaxeSejourTrimDtoResponse> findAll() {
@@ -35,7 +39,9 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     public Result save(TaxeSejourTrimDto taxeSejourTrim) {
         TaxeSejourTrimPojo taxeSejourTrimPojo = modelMapper.map(taxeSejourTrim, TaxeSejourTrimPojo.class);
         log.info("data {}", taxeSejourTrimPojo);
-        return createTaxeTrimProcess.execute(taxeSejourTrimPojo);
+        Result result = createTaxeTrimProcess.execute(taxeSejourTrimPojo);
+        kafkaTemplate.send("myTopic", jsonConverter.toJson(result.getOutput()));
+        return result;
     }
 
 }
