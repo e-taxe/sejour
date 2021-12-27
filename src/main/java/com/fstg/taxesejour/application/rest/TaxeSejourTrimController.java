@@ -1,5 +1,7 @@
 package com.fstg.taxesejour.application.rest;
 
+import com.fstg.taxesejour.application.config.MessageKafka;
+import com.fstg.taxesejour.application.config.SendMessage;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDto;
 import com.fstg.taxesejour.application.dto.TaxeSejourTrimDtoResponse;
 import com.fstg.taxesejour.application.rest.api.TaxeSejourTrimApi;
@@ -7,7 +9,6 @@ import com.fstg.taxesejour.domaine.core.Result;
 import com.fstg.taxesejour.domaine.pojo.TaxeSejourTrimPojo;
 import com.fstg.taxesejour.domaine.process.taxeSejourTrim.create.CreateTaxeTrimProcess;
 import com.fstg.taxesejour.infrastructure.dao.facade.TaxeSejourTrimInfra;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,8 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     private final TaxeSejourTrimInfra taxeSejourTrimInfra;
     private final ModelMapper modelMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final Gson jsonConverter;
+    private final SendMessage sendMessage;
+
 
     @Override
     public List<TaxeSejourTrimDtoResponse> findAll() {
@@ -39,9 +41,9 @@ public class TaxeSejourTrimController implements TaxeSejourTrimApi {
     public Result save(TaxeSejourTrimDto taxeSejourTrim) {
         TaxeSejourTrimPojo taxeSejourTrimPojo = modelMapper.map(taxeSejourTrim, TaxeSejourTrimPojo.class);
         log.info("data {}", taxeSejourTrimPojo);
-        Result result = createTaxeTrimProcess.execute(taxeSejourTrimPojo);
-        kafkaTemplate.send("myTopic", jsonConverter.toJson(result.getOutput()));
-        return result;
+//        Result result = createTaxeTrimProcess.execute(taxeSejourTrimPojo);
+        kafkaTemplate.send("myTopic", sendMessage.buildMessage(taxeSejourTrim));
+        return null;
     }
 
 }

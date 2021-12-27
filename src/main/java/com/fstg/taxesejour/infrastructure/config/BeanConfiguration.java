@@ -1,6 +1,7 @@
 package com.fstg.taxesejour.infrastructure.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fstg.taxesejour.domaine.process.taxeSejourAnnuel.create.CreateTaxeAnnuelProcess;
 import com.fstg.taxesejour.domaine.process.taxeSejourAnnuel.create.CreateTaxeAnnuelProcessImpl;
 import com.fstg.taxesejour.domaine.process.taxeSejourTrim.create.CreateTaxeTrimProcess;
@@ -54,6 +55,11 @@ public class BeanConfiguration {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
     }
 
 

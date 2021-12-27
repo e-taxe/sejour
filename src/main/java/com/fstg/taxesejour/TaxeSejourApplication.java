@@ -1,6 +1,7 @@
 package com.fstg.taxesejour;
 
 
+import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,10 @@ public class TaxeSejourApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
+	}
+	@Bean
+	public Gson jsonConverter() {
+		return new Gson();
 	}
 
 }
